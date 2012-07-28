@@ -1,0 +1,5 @@
+check process gitolite
+  with pidfile /var/vcap/sys/run/gitolite/gitolite.pid
+  start program "/var/vcap/jobs/gitolite/bin/gitolite_ctl start"
+  stop program "/var/vcap/jobs/gitolite/bin/gitolite_ctl stop"
+  group vcap

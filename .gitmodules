@@ -1,0 +1,3 @@
+[submodule "src/gitolite"]
+	path = src/gitolite
+	url = git://github.com/sitaramc/gitolite

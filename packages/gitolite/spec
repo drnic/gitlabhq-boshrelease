@@ -1,0 +1,6 @@
+---
+name: gitolite
+dependencies:
+- perl
+- git
+files: []

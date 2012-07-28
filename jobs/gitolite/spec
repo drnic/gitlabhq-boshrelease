@@ -1,0 +1,8 @@
+---
+name: gitolite
+packages:
+- gitolite
+- perl
+- git
+templates:
+  gitolite_ctl: bin/gitolite_ctl

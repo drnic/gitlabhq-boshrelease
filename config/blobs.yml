@@ -1,1 +1,9 @@
---- {}
+---
+git/git-1.7.11.3.tar.gz:
+  object_id: 56b2b8ef-7fa5-43cd-a68d-bfeba8dbfa5f
+  sha: a10c420e4d9152d6059f41825904cfac3062b135
+  size: 4018044
+perl/perl-5.16.0.tar.gz:
+  object_id: 513cfc48-a630-472e-b26f-55952bee60e2
+  sha: d21de2b409d99440047a4e67a61f0a781ea2f66b
+  size: 15727416

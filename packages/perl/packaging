@@ -6,6 +6,7 @@ export HOME=/var/vcap
 
 tar xzf perl/perl-5.16.0.tar.gz
 cd perl-5.16.0
-./configure --prefix=${BOSH_INSTALL_TARGET}
+sh Configure -de -Dprefix=${BOSH_INSTALL_TARGET}
 make
+make test
 make install

@@ -1,0 +1,40 @@
+--- 
+packages: 
+- name: common
+  version: 1
+  sha1: 5591f980331fb37ce7e0c8aba85a01ca0ebf4d41
+  dependencies: []
+
+- name: gettext
+  version: 1
+  sha1: 25dfc477351d0345a4148440b8da4e08cb6e4f73
+  dependencies: []
+
+- name: git
+  version: 1
+  sha1: 5f443ed32d6559e953ccd7c2cde4c58c99421839
+  dependencies: 
+  - perl
+  - gettext
+- name: gitolite
+  version: 1
+  sha1: 8eb53f58b5ec43dfd25d5663b88ef06391deb7c9
+  dependencies: 
+  - perl
+  - git
+- name: nginx_next
+  version: 1
+  sha1: 5c4df97b83a46bdd93c0cff343aeae20a8195e3f
+  dependencies: []
+
+- name: perl
+  version: 1
+  sha1: b870c0fa237ebd1ed7f7292b0b035bfb5eef2b7e
+  dependencies: []
+
+jobs: 
+- name: gitolite
+  version: 3
+  sha1: f65ecf2d52900fe07aec1556307f6f14cbb3c39c
+name: gitlabhq
+version: 3

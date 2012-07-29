@@ -104,6 +104,15 @@ http {
       expires 10y;
     }
 
+    # enable chunkin module
+    # as per https://github.com/agentzh/chunkin-nginx-module#description
+    chunkin on;
+
+    error_page 411 = @my_411_error;
+    location @my_411_error {
+        chunkin_resume;
+    }
+
     # For Puma, simply proxy
     location @app_gitolite {
       include /var/vcap/jobs/gitolite/config/nginx_proxy.conf;

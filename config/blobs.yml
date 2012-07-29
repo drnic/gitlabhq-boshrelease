@@ -55,3 +55,7 @@ nginx/nginx_chunkin_module-v0.23rc2.tar.gz:
   object_id: 0afec4b2-f820-4529-a54b-ae651c1241c2
   sha: c44558b517c6476d63f26bec7f695839b6bc94ad
   size: 37549
+gitolite/gitolite-http-backend-a37da115b.zip:
+  object_id: ef359e2f-4ade-4567-a775-7b34217847d1
+  sha: ae4bee7fb888ca4f3e74ccac08cd130f4c3586aa
+  size: 87518

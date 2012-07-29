@@ -1,0 +1,6 @@
+---
+name: gitolite-http-backend
+dependencies:
+- perl
+files:
+- gitolite/gitolite-http-backend-a37da115b.zip

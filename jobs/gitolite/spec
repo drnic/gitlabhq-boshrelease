@@ -8,4 +8,5 @@ packages:
 - common
 templates:
   gitolite_ctl:       bin/gitolite_ctl
+  nginx_ctl:          bin/nginx_ctl
   setup_gitolite.erb: bin/setup_gitolite

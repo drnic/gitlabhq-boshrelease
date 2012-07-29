@@ -59,5 +59,13 @@ it_creates_authorized_keys() {
   test -f /home/git/.ssh/authorized_keys
 }
 
+it_runs_nginx() {
+  expected='sbin/nginx -c /var/vcap/jobs/gitolite/config/nginx.conf'
+  test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 1
+}
+
+it_restarted_nginx() {
+  test $(cat /var/vcap/sys/log/gitolite/nginx.stderr.log | wc -l) = 0
+}
 # TODO test that .ssh/authorized_keys uses symlinks instead of 
 # command="/var/vcap/data/packages/gitolite/0.10-dev/src/gitolite-shell gitolite

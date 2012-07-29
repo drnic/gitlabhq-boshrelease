@@ -51,3 +51,7 @@ nginx/pcre-8.21.tar.gz:
   object_id: 7744f0a2-0757-4976-a749-279636a05506
   sha: dffb43eff9729c0999843a86ef97961b8c4f6ac8
   size: 1556329
+nginx/nginx_chunkin_module-v0.23rc2.tar.gz:
+  object_id: 0afec4b2-f820-4529-a54b-ae651c1241c2
+  sha: c44558b517c6476d63f26bec7f695839b6bc94ad
+  size: 37549

@@ -62,6 +62,10 @@ it_creates_authorized_keys() {
   test -f /home/git/.ssh/authorized_keys
 }
 
+it_has_chunkin_module_in_nginx() {
+  test $(/var/vcap/packages/nginx_next/sbin/nginx -V 2>&1 | grep 'chunkin' | wc -l) = 1
+}
+
 it_runs_nginx() {
   expected='sbin/nginx -c /var/vcap/jobs/gitolite/config/nginx.conf'
   test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 1

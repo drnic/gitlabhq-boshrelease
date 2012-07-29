@@ -5,6 +5,7 @@ packages:
 - perl
 - git
 - gettext
+- common
 templates:
   gitolite_ctl:       bin/gitolite_ctl
   setup_gitolite.erb: bin/setup_gitolite

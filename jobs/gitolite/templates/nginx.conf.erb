@@ -1,13 +1,9 @@
 #deployment webapp nginx.conf
-<% require 'ostruct' %>
-<% properties.webapp ||= OpenStruct.new %>
-<% properties.webapp.nginx ||= OpenStruct.new %>
-<% package_name = properties.webapp.package || 'rackapp' %>
-<% webapp_port_start = 5000 %>
+<% gitolite_port_start = 5500 %>
 
 user vcap vcap;
-worker_processes <%= properties.webapp.nginx.worker_processes || 1 %>;
-pid /var/vcap/sys/run/webapp/nginx.pid;
+worker_processes 1;
+pid /var/vcap/sys/run/gitolite/nginx.pid;
 
 events {
   worker_connections  8192;
@@ -39,8 +35,8 @@ http {
   gzip_buffers      16 8k;
   gzip_types        application/json text/plain text/css application/x-javascript text/xml application/xml application/xml+rss text/javascript;
 
-  upstream <%= package_name %>_upstream {
-    server 127.0.0.1:<%= webapp_port_start %>;
+  upstream gitolite_upstream {
+    server 127.0.0.1:<%= gitolite_port_start %>;
   }
 
   server {
@@ -83,15 +79,15 @@ http {
     #
     # The application root which is inherited for all location blocks below.
     #
-    root /var/vcap/packages/<%= package_name %>/public;
+    root /var/vcap/packages/gitolite/public;
 
     #
     # Logging
     #
-    # Log files are stored within the /var/vcap/sys/log/webapp/ directory.
+    # Log files are stored within the /var/vcap/sys/log/gitolite/ directory.
     #
-    access_log  /var/vcap/sys/log/webapp/<%= package_name %>.access.log  main;
-    error_log   /var/vcap/sys/log/webapp/<%= package_name %>.error.log notice;
+    access_log  /var/vcap/sys/log/gitolite/gitolite.access.log  main;
+    error_log   /var/vcap/sys/log/gitolite/gitolite.error.log notice;
 
     #
     # Expire header on assets. For more information on the reasoning behind
@@ -99,14 +95,14 @@ http {
     #
     # set Expire header on assets: see http://developer.yahoo.com/performance/rules.html#expires
     location ~ ^/(images|assets|javascripts|stylesheets)/ {
-      try_files  $uri $uri/index.html /last_assets/$uri /last_assets/$uri.html @app_<%= package_name %>;
+      try_files  $uri $uri/index.html /last_assets/$uri /last_assets/$uri.html @app_gitolite;
       expires 10y;
     }
 
     # For Puma, simply proxy
-    location @app_<%= package_name %> {
-      include /var/vcap/jobs/webapp/config/nginx_proxy.conf;
-      proxy_pass http://<%= package_name %>_upstream;
+    location @app_gitolite {
+      include /var/vcap/jobs/gitolite/config/nginx_proxy.conf;
+      proxy_pass http://gitolite_upstream;
     }
 
     #
@@ -143,7 +139,7 @@ http {
     #
     location / {
       if (-f $document_root/system/maintenance.html) { return 503; }
-      try_files $uri $uri/index.html $uri.html @app_<%= package_name %>;
+      try_files $uri $uri/index.html $uri.html @app_gitolite;
     }
 
   }

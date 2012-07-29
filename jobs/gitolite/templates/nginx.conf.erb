@@ -40,10 +40,6 @@ http {
   gzip_buffers      16 8k;
   gzip_types        application/json text/plain text/css application/x-javascript text/xml application/xml application/xml+rss text/javascript;
 
-  upstream gitolite_upstream {
-    server 127.0.0.1:<%= gitolite_port_start %>;
-  }
-
   server {
     #
     # The default port to listen on.
@@ -113,47 +109,12 @@ http {
         chunkin_resume;
     }
 
-    # For Puma, simply proxy
-    location @app_gitolite {
-      include /var/vcap/jobs/gitolite/config/nginx_proxy.conf;
-      proxy_pass http://gitolite_upstream;
-    }
-
-    #
-    # HTTP Error handling.
-    #
-    # 404 - Resource Not found.
-    error_page 404 /404.html;
-    # 50X - Application Error(s)
-    error_page 500 502 504 /500.html;
-    # 503 - System Maintenance
-    error_page 503 @503;
-    recursive_error_pages on;
-    location @503 {
-      error_page 405 = /system/maintenance.html;
-
-      # Serve static assets if found.
-      if (-f $request_filename) {
-        break;
-      }
-
-      rewrite ^(.*)$ /system/maintenance.html break;
-    }
-    error_page 503 /system/maintenance.html;
-
-    #
-    # The default location will process the request as follows:
-    #
-    # 1. If a system maintenance page is in place, serve it.
-    # 2. If the request uri matches a resource on disk, serve it.
-    # 3. If the request uri/index.html matches a cache file on disk, serve it.
-    # 4. If the request uri.html is cached on disk, serve it.
-    # 5. Failing any caching or system maintenance, pass the request to the
-    #    application.
-    #
+    # Default location as specified by https://github.com/yibe/gitolite-gitweb-http-backend-starman-nginx#nginx
     location / {
-      if (-f $document_root/system/maintenance.html) { return 503; }
-      try_files $uri $uri/index.html $uri.html @app_gitolite;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass  http://127.0.0.1:<%= gitolite_port_start %>;
     }
 
   }

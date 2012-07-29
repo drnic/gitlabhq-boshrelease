@@ -2,6 +2,7 @@
 name: gitolite
 packages:
 - gitolite
+- nginx_next
 - perl
 - git
 - gettext

@@ -5,3 +5,23 @@ export HOME=/var/vcap
 
 PATH=/var/vcap/packages/perl/bin:$PATH
 PATH=/var/vcap/packages/git/bin:$PATH
+
+cp -a gitolite/* ${BOSH_INSTALL_TARGET}/
+
+# ./install
+#     to run gitolite using an absolute or relative path, for example
+#     'src/gitolite' or '/full/path/to/this/dir/src/gitolite'
+# 
+# ./install -ln [<dir>]
+#     to symlink just the gitolite executable to some <dir> that is in
+#     $PATH.  <dir> defaults to $HOME/bin if <dir> not specified.  <dir> is
+#     assumed to exist; gitolite will not create it.
+# 
+#     Please provide a full path, not a relative path.
+# 
+# ./install -to <dir>
+#     to copy the entire 'src' directory to <dir>.  If <dir> is not in
+#     $PATH, use the full path to run gitolite commands.
+# 
+#     Please provide a full path, not a relative path.
+# ./gitolite/install -to ${BOSH_INSTALL_PATH}/bin

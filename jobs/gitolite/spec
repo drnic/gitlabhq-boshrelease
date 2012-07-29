@@ -6,4 +6,5 @@ packages:
 - git
 - gettext
 templates:
-  gitolite_ctl: bin/gitolite_ctl
+  gitolite_ctl:       bin/gitolite_ctl
+  setup_gitolite.erb: bin/setup_gitolite

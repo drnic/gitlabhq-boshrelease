@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# Create git user, if not already created
+#
+# Tutorials being followed:
+# * http://www.bigfastblog.com/gitolite-installation-step-by-step
+
+export GIT_USER='<%= (properties.git && properties.git.login) || 'git' %>'
+export GIT_USER_GRP=${GIT_USER}:${GIT_USER}
+export GIT_PASSWORD="<%= (properties.git && properties.git.password) || '${GIT_USER}' %>"
+export GIT_HOME="/home/${GIT_USER}"
+export GIT_BIN=${GIT_HOME}/bin
+export GIT_INITIAL_KEY='<%= properties.git.initial_admin_key %>'
+
+export HOME=${GIT_HOME}
+
+
+if [[ ! -d ${GIT_HOME} ]]
+then
+  /usr/sbin/adduser \
+      --system \
+      --shell /bin/bash \
+      --gecos 'git version control' \
+      --group \
+      --disabled-password \
+      --home ${GIT_HOME} ${GIT_USER}
+
+  echo "export PATH=$PATH:/var/vcap/jobs/gitolite/bin" >> ${HOME_PATH}/.bashrc
+  echo "export PATH=$PATH:${GIT_BIN}" >> ${HOME_PATH}/.bashrc
+fi
+
+chpst -u ${GIT_USER_GRP} mkdir -p ${GIT_BIN}
+export PATH=$PATH:${GIT_BIN}
+
+/var/vcap/packages/gitolite/install -ln ${GIT_BIN}
+
+echo "${GIT_INITIAL_KEY}" > ${HOME_PATH}/gitolite.pub
+chown ${GIT_USER_GRP} ${HOME_PATH}/gitolite.pub
+gitolite setup -pk ${HOME_PATH}/gitolite.pub

@@ -4,4 +4,4 @@ dependencies:
 - perl
 - git
 files:
-- gitolite/**
+- gitolite/**/*

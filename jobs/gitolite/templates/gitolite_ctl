@@ -1,29 +1,20 @@
 #!/bin/bash
 
-# Control script to start/stop ruby/rack gitolite job on a BOSH controlled VM
-#
-# In local development, this script can be run manually. Examples below assume you are in the root of this release project.
-#
-# Start process example:
-# APP_DIR=/path/to/gitolite RACK_ENV=development COMMAND=shotgun PORT=9393 jobs/gitolite/templates/gitolite_ctl start
-#
-# View STDOUT/STDERR logs:
-# jobs/gitolite/templates/gitolite_ctl logs
-#
-# Clear logs:
-# jobs/gitolite/templates/gitolite_ctl clearlogs
+# Control script to start/stop gitolite job on a BOSH controlled VM
 
-# TODO - change "EXECUTABLE_SERVER" to the command to run
+source /var/vcap/packages/common/utils.sh
+redirect_output 'gitolite_ctl'
+
+# Setup git user & env variables
+/var/vcap/jobs/gitolite/bin/setup_gitolite
 
 RUN_DIR=/var/vcap/sys/run/gitolite
 LOG_DIR=/var/vcap/sys/log/gitolite
 STORE=/var/vcap/store/gitolite
 PIDFILE=$RUN_DIR/gitolite.pid
 
-export PATH=/var/vcap/packages/ruby/bin:$PATH
-
-COMMAND=${COMMAND:-/var/vcap/packages/gitolite/bin/EXECUTABLE_SERVER}
-HOME=${HOME:-/home/vcap}
+export PATH=/var/vcap/packages/perl/bin:$PATH
+export PATH=/var/vcap/packages/git/bin:$PATH
 
 case $1 in
 
@@ -34,14 +25,14 @@ case $1 in
 
     echo $$ > $PIDFILE
 
-    exec $COMMAND >>$LOG_DIR/gitolite.stdout.log 2>>$LOG_DIR/gitolite.stderr.log
+    # exec $COMMAND >>$LOG_DIR/gitolite.stdout.log 2>>$LOG_DIR/gitolite.stderr.log
+    echo "gitolite: No command to run yet!"
+    exit 1
     ;;
 
   stop)
-    PID=$(head -1 $PIDFILE)
-    kill $PID
-    while [ -e /proc/$PID ]; do sleep 0.1; done
-    rm -f $PIDFILE
+    echo "Stopping gitolite"
+    kill_and_wait $PIDFILE
     ;;
 
   logs)

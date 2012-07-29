@@ -1,8 +1,13 @@
 #deployment webapp nginx.conf
-<% gitolite_port_start = 5500 %>
-
+<% 
+require 'ostruct'
+properties.gitolite ||= OpenStruct.new
+properties.gitolite.nginx ||= OpenStruct.new
+nginx = properties.gitolite.nginx
+gitolite_port_start = 5500
+%>
 user vcap vcap;
-worker_processes 1;
+worker_processes <%= nginx.worker_processes || 1 %>;
 pid /var/vcap/sys/run/gitolite/nginx.pid;
 
 events {
@@ -48,7 +53,7 @@ http {
     # By default Nginx will listen for traffic on the specified port for all IP
     # addresses assigned to the host.
     #
-    listen       <%= properties.webapp.nginx.port || 80 %>;
+    listen <%= nginx.port || 80 %>;
 
     #
     # Server Names
@@ -65,7 +70,7 @@ http {
     # It is good practice to include wildcard subdomains so that Nginx will not
     # require a restart when new services are added for an application.
     #
-    server_name  <%= properties.webapp.nginx.server_name || '_' %>;
+    server_name  <%= nginx.server_name || '_' %>;
     server_name_in_redirect off;
 
     #

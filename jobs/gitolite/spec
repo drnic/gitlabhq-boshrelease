@@ -7,6 +7,8 @@ packages:
 - gettext
 - common
 templates:
-  gitolite_ctl:       bin/gitolite_ctl
   nginx_ctl:          bin/nginx_ctl
+  nginx.conf.erb:     config/nginx.conf
+  nginx_proxy.conf:   config/nginx_proxy.conf
+  mime.types:         config/mime.types
   setup_gitolite.erb: bin/setup_gitolite

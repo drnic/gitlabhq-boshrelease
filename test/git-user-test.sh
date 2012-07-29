@@ -22,12 +22,15 @@ before_all() {
   echo "| Deleting storage"
   echo "|"
   rm -rf /var/vcap/store
-  
-  echo "|"
-  echo "| Deleting git user"
-  echo "|"
-  userdel -f git
-  rm -rf /home/git/
+
+  if [ -d /home/git/ ]
+  then
+    echo "|"
+    echo "| Deleting git user"
+    echo "|"
+    userdel -f git
+    rm -rf /home/git/
+  fi
 
   # update deployment with example properties
   example=${release_path}/examples/one_user.yml

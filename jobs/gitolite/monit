@@ -1,4 +1,4 @@
-check process nginx
+check process gitolite_nginx
   with pidfile /var/vcap/sys/run/gitolite/nginx.pid
   start program "/var/vcap/packages/common/bin/monit_debugger gitolite_nginx '/var/vcap/jobs/gitolite/bin/nginx_ctl start'"
   stop program "/var/vcap/packages/common/bin/monit_debugger gitolite_nginx '/var/vcap/jobs/gitolite/bin/nginx_ctl stop'"

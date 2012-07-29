@@ -7,3 +7,7 @@ perl/perl-5.16.0.tar.gz:
   object_id: 513cfc48-a630-472e-b26f-55952bee60e2
   sha: d21de2b409d99440047a4e67a61f0a781ea2f66b
   size: 15727416
+gettext/gettext-0.18.1.1.tar.gz:
+  object_id: 8ff90192-162d-4586-bf0b-9a42a09184b8
+  sha: 5009deb02f67fc3c59c8ce6b82408d1d35d4e38f
+  size: 15139737

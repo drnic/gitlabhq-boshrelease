@@ -34,6 +34,8 @@ export PATH=$PATH:${GIT_BIN}
 
 /var/vcap/packages/gitolite/install -ln ${GIT_BIN}
 
-echo "${GIT_INITIAL_KEY}" > ${HOME_PATH}/gitolite.pub
-chown ${GIT_USER_GRP} ${HOME_PATH}/gitolite.pub
-gitolite setup -pk ${HOME_PATH}/gitolite.pub
+echo "${GIT_INITIAL_KEY}" > ${HOME_PATH}/${GIT_USER}.pub
+chown ${GIT_USER_GRP} ${HOME_PATH}/${GIT_USER}.pub
+
+# TODO how to make idempotent? what is it doing?
+gitolite setup -pk ${HOME_PATH}/${GIT_USER}.pub

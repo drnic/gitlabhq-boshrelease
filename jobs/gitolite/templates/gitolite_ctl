@@ -13,9 +13,6 @@ LOG_DIR=/var/vcap/sys/log/gitolite
 STORE=/var/vcap/store/gitolite
 PIDFILE=$RUN_DIR/gitolite.pid
 
-export PATH=/var/vcap/packages/perl/bin:$PATH
-export PATH=/var/vcap/packages/git/bin:$PATH
-
 case $1 in
 
   start)

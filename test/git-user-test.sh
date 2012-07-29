@@ -26,7 +26,8 @@ before_all() {
   echo "|"
   echo "| Deleting git user"
   echo "|"
-  userdel -f -r git || true
+  userdel -f git
+  rm -rf /home/git/
 
   # update deployment with example properties
   example=${release_path}/examples/one_user.yml
@@ -57,3 +58,6 @@ it_creates_gitolite_admin() {
 it_creates_authorized_keys() {
   test -f /home/git/.ssh/authorized_keys
 }
+
+# TODO test that .ssh/authorized_keys uses symlinks instead of 
+# command="/var/vcap/data/packages/gitolite/0.10-dev/src/gitolite-shell gitolite

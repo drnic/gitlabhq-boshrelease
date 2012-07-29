@@ -1,3 +1,6 @@
 set -e
 
 cp -a common/* ${BOSH_INSTALL_TARGET}
+
+# Ensure all bin/ are executable
+chmod 755 ${BOSH_INSTALL_TARGET}/bin/*

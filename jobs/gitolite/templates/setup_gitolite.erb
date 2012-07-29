@@ -5,11 +5,13 @@
 # Tutorials being followed:
 # * http://www.bigfastblog.com/gitolite-installation-step-by-step
 
+set -u # report the usage of uninitialized variables
+set +x
+
 export GIT_USER='<%= (properties.git && properties.git.login) || 'git' %>'
 export GIT_USER_GRP=${GIT_USER}:${GIT_USER}
 export GIT_PASSWORD="<%= (properties.git && properties.git.password) || '${GIT_USER}' %>"
 export GIT_HOME="/home/${GIT_USER}"
-export GIT_BIN=${GIT_HOME}/bin
 export GIT_INITIAL_KEY='<%= properties.git.initial_admin_key %>'
 
 export HOME=${GIT_HOME}
@@ -25,17 +27,21 @@ then
       --disabled-password \
       --home ${GIT_HOME} ${GIT_USER}
 
-  echo "export PATH=$PATH:/var/vcap/jobs/gitolite/bin" >> ${HOME_PATH}/.bashrc
-  echo "export PATH=$PATH:${GIT_BIN}" >> ${HOME_PATH}/.bashrc
+  touch ${GIT_HOME}/.bashrc
+  echo 'export PATH=/var/vcap/packages/perl/bin:$PATH' >> ${GIT_HOME}/.bashrc
+  echo 'export PATH=/var/vcap/packages/git/bin:$PATH' >> ${GIT_HOME}/.bashrc
+  echo 'export PATH=/var/vcap/packages/gitolite/src:$PATH' >> ${GIT_HOME}/.bashrc
+  chpst -u ${GIT_USER_GRP} mkdir -p ${GIT_BIN}
 fi
 
-chpst -u ${GIT_USER_GRP} mkdir -p ${GIT_BIN}
-export PATH=$PATH:${GIT_BIN}
+export PATH=/var/vcap/packages/perl/bin:$PATH
+export PATH=/var/vcap/packages/git/bin:$PATH
+export PATH=/var/vcap/packages/gitolite/src:$PATH
 
-/var/vcap/packages/gitolite/install -ln ${GIT_BIN}
+chpst -u ${GIT_USER_GRP} /var/vcap/packages/gitolite/install
 
-echo "${GIT_INITIAL_KEY}" > ${HOME_PATH}/${GIT_USER}.pub
-chown ${GIT_USER_GRP} ${HOME_PATH}/${GIT_USER}.pub
+echo "${GIT_INITIAL_KEY}" > ${GIT_HOME}/${GIT_USER}.pub
+chown ${GIT_USER_GRP} ${GIT_HOME}/${GIT_USER}.pub
 
 # TODO how to make idempotent? what is it doing?
-gitolite setup -pk ${HOME_PATH}/${GIT_USER}.pub
+chpst -u ${GIT_USER_GRP} gitolite setup -pk ${GIT_HOME}/${GIT_USER}.pub

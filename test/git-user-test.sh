@@ -49,3 +49,11 @@ before() {
 it_creates_git_home() {
   test -d /home/git
 }
+
+it_creates_gitolite_admin() {
+  test -d /home/git/repositories/gitolite-admin.git/
+}
+
+it_creates_authorized_keys() {
+  test -f /home/git/.ssh/authorized_keys
+}

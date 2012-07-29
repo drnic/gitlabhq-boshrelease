@@ -11,3 +11,43 @@ gettext/gettext-0.18.1.1.tar.gz:
   object_id: 8ff90192-162d-4586-bf0b-9a42a09184b8
   sha: 5009deb02f67fc3c59c8ce6b82408d1d35d4e38f
   size: 15139737
+nginx/devel-kit-v0.2.17rc2.tar.gz:
+  object_id: 73619a7b-620c-4400-9656-d800fdd2db4d
+  sha: 7eadfe53d674972c0f7f27d7b26eff95829bc0b2
+  size: 64964
+nginx/headers-more-v0.15rc1.tgz:
+  object_id: 273cb52c-7580-4889-9907-db3bd416f3fe
+  sha: ba7bf757be8004d9dbffbe583396620cfcbed788
+  size: 25490
+nginx/lbase64.tar.gz:
+  object_id: 0cd96a67-e59c-48ad-ba0f-3235a53900f0
+  sha: 5692619dae780dbdf9edc994f9dcd7dce7b24646
+  size: 2503
+nginx/lua-5.1.4.tar.gz:
+  object_id: 662280a4-747a-4bc0-a2b7-a631b28a08d9
+  sha: 2b11c8e60306efb7f0734b747588f57995493db7
+  size: 216679
+nginx/lua-cjson-1.0.3.tar.gz:
+  object_id: 878f8a4e-f0c0-4237-a9ed-263e4eea08df
+  sha: 7335961ff6619a7eae824e8cf9432100ca377476
+  size: 31780
+nginx/lua-openssl-0.1.1.tar.gz:
+  object_id: 71150685-9183-4071-81c7-17b0223ef5b8
+  sha: 27f38b3f7d44f59690ed081f892891a35a5ebfaa
+  size: 69253
+nginx/nginx-1.2.0.tar.gz:
+  object_id: 36ae8637-ebd9-404b-938a-ec1eb9e8a378
+  sha: 15cec8d1b8dbf2007f9f99594a08a2f45814034e
+  size: 716067
+nginx/nginx-lua.v0.4.1.tar.gz:
+  object_id: ef5e4499-5821-44a5-8235-6a1af428a3f7
+  sha: fd37ffa48a618b2e521ea9797d13f523640fad4f
+  size: 240823
+nginx/nginx_upload_module-2.2.0.tar.gz:
+  object_id: 6d655536-c847-4056-abe7-5a2688ed5d79
+  sha: 93d6e83e613a0ce2ed057a434b344fa1b6609b47
+  size: 25796
+nginx/pcre-8.21.tar.gz:
+  object_id: 7744f0a2-0757-4976-a749-279636a05506
+  sha: dffb43eff9729c0999843a86ef97961b8c4f6ac8
+  size: 1556329

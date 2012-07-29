@@ -15,7 +15,7 @@ export GIT_HOME="/home/${GIT_USER}"
 export GIT_INITIAL_KEY='<%= properties.git.initial_admin_key %>'
 
 export HOME=${GIT_HOME}
-
+packages=/var/vcap/packages
 
 if [[ ! -d ${GIT_HOME} ]]
 then
@@ -28,17 +28,17 @@ then
       --home ${GIT_HOME} ${GIT_USER}
 
   touch ${GIT_HOME}/.bashrc
-  echo 'export PATH=/var/vcap/packages/perl/bin:$PATH' >> ${GIT_HOME}/.bashrc
-  echo 'export PATH=/var/vcap/packages/git/bin:$PATH' >> ${GIT_HOME}/.bashrc
-  echo 'export PATH=/var/vcap/packages/gitolite/src:$PATH' >> ${GIT_HOME}/.bashrc
+  echo 'export PATH=${packages}/perl/bin:$PATH' >> ${GIT_HOME}/.bashrc
+  echo 'export PATH=${packages}/git/bin:$PATH' >> ${GIT_HOME}/.bashrc
+  echo 'export PATH=${packages}/gitolite/src:$PATH' >> ${GIT_HOME}/.bashrc
   chpst -u ${GIT_USER_GRP} mkdir -p ${GIT_BIN}
 fi
 
-export PATH=/var/vcap/packages/perl/bin:$PATH
-export PATH=/var/vcap/packages/git/bin:$PATH
-export PATH=/var/vcap/packages/gitolite/src:$PATH
+export PATH=${packages}/perl/bin:$PATH
+export PATH=${packages}/git/bin:$PATH
+export PATH=${packages}/gitolite/src:$PATH
 
-chpst -u ${GIT_USER_GRP} /var/vcap/packages/gitolite/install
+chpst -u ${GIT_USER_GRP} ${packages}/gitolite/install
 
 echo "${GIT_INITIAL_KEY}" > ${GIT_HOME}/${GIT_USER}.pub
 chown ${GIT_USER_GRP} ${GIT_HOME}/${GIT_USER}.pub

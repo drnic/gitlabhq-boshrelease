@@ -3,9 +3,22 @@ set -u # report the usage of uninitialized variables
 
 export HOME=/var/vcap
 
+export PATH=$PATH:/var/vcap/packages/gettext/bin
 
 tar xzf git/git-1.7.11.3.tar.gz
 cd git-1.7.11.3
-./configure --prefix=${BOSH_INSTALL_TARGET}
-make
+
+# NO_TCLTK
+./configure \
+  --prefix=${BOSH_INSTALL_TARGET} \
+  --with-perl /var/vcap/packages/perl/bin \
+  --without-tcltk
+
+# -i - to ignore errors [1]
+make -i
+
 make install
+
+
+
+# [1] http://stackoverflow.com/questions/9500898/compiler-error-msgfmt-command-not-found-when-compiling-git-on-a-shared-hosting

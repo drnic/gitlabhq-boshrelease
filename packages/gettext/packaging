@@ -1,0 +1,11 @@
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+export HOME=/var/vcap
+
+
+tar xzf gettext/gettext-0.18.1.1.tar.gz
+cd gettext-0.18.1.1
+./configure --prefix=${BOSH_INSTALL_TARGET}
+make
+make install

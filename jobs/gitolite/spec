@@ -4,5 +4,6 @@ packages:
 - gitolite
 - perl
 - git
+- gettext
 templates:
   gitolite_ctl: bin/gitolite_ctl

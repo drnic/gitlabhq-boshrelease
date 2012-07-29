@@ -1,0 +1,5 @@
+---
+name: gettext
+dependencies: []
+files:
+- gettext/gettext-0.18.1.1.tar.gz

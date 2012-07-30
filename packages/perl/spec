@@ -3,3 +3,4 @@ name: perl
 dependencies: []
 files:
 - perl/perl-5.16.0.tar.gz
+- gitolite/gitolite-http-backend-a37da115b.zip

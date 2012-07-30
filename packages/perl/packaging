@@ -3,10 +3,22 @@ set -u # report the usage of uninitialized variables
 
 export HOME=/var/vcap
 
-
+cd ${BOSH_COMPILE_TARGET}
 tar xzf perl/perl-5.16.0.tar.gz
 cd perl-5.16.0
 sh Configure -de -Dprefix=${BOSH_INSTALL_TARGET}
+make
+make test
+make install
+
+export PATH=/var/vcap/packages/perl/bin:$PATH
+
+cd ${BOSH_COMPILE_TARGET}
+unzip gitolite/gitolite-http-backend-a37da115b.zip
+cp -aR gitolite-gitweb-http-backend-starman-nginx/* ${BOSH_INSTALL_TARGET}
+
+cd ${BOSH_INSTALL_TARGET}
+perl Makefile.PL
 make
 make test
 make install

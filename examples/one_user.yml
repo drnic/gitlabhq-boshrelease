@@ -2,6 +2,7 @@
 jobs:
 - gitolite
 - gitlabhq
+- redis
 properties:
   git:
     login: git
@@ -19,3 +20,7 @@ properties:
         max: 20
     migrate: 1
     migration_command: rake db:migrate
+  redis:
+    host: 127.0.0.1
+    port: 6379 
+    password: rEd!s

@@ -1,0 +1,7 @@
+check process redis
+  with pidfile /var/vcap/sys/run/redis/redis.pid
+  start program "/var/vcap/jobs/redis/bin/redis_ctl start"
+  stop program "/var/vcap/jobs/redis/bin/redis_ctl stop"
+  if failed host 127.0.0.1 port <%= (properties.redis && properties.redis.port) || 6379 %> then restart
+  if 5 restarts within 5 cycles then timeout
+  group vcap

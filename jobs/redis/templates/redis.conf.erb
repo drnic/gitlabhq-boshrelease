@@ -1,0 +1,15 @@
+daemonize yes
+pidfile /var/vcap/sys/run/redis/redis.pid
+timeout 300
+loglevel notice
+logfile stdout
+databases 16
+dir /var/vcap/store/redis
+maxclients 0
+maxmemory-policy noeviction
+save 60 1000
+appendonly yes
+port <%= (properties.redis && properties.redis.port) || 6379 %>
+<% if properties.redis && properties.redis.password %>
+requirepass <%= properties.redis.password %>
+<% end %>

@@ -1,0 +1,8 @@
+---
+name: redis
+packages:
+- redis
+- common
+templates:
+  redis_ctl: bin/redis_ctl
+  redis.conf.erb: config/redis.conf

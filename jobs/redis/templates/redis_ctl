@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Control script to start/stop redis job on a BOSH controlled VM
+
+RUN_DIR=/var/vcap/sys/run/redis
+LOG_DIR=/var/vcap/sys/log/redis
+STORE=/var/vcap/store/redis
+PIDFILE=$RUN_DIR/redis.pid
+
+source /var/vcap/packages/common/utils.sh
+redirect_output 'redis'
+
+case $1 in
+
+  start)
+    mkdir -p $RUN_DIR
+    mkdir -p $LOG_DIR
+    mkdir -p $STORE
+
+    exec /var/vcap/packages/redis/bin/redis-server /var/vcap/jobs/redis/config/redis.conf >>$LOG_DIR/redis.stdout.log 2>>$LOG_DIR/redis.stderr.log
+    ;;
+
+  stop)
+    kill_and_wait $PIDFILE
+    ;;
+
+  *)
+  echo "Usage: redis_ctl {start|stop}" ;;
+esac
+exit 0

@@ -55,3 +55,31 @@ nginx/nginx_chunkin_module-v0.23rc2.tar.gz:
   object_id: 0afec4b2-f820-4529-a54b-ae651c1241c2
   sha: c44558b517c6476d63f26bec7f695839b6bc94ad
   size: 37549
+mysql/client-5.1.62-rel13.3-435-Linux-x86_64.tar.gz:
+  object_id: 0797b50c-eb1e-4774-8199-7c5b30cc2ee0
+  sha: 6e5a17195831688a5f14f20aa5d9cd5d5f4164db
+  size: 4105211
+postgres/postgresql-9.0.3.tar.gz:
+  object_id: 8800147f-b6f9-4abe-b3a7-88a651db1488
+  sha: c8fb5d1d7930e78211e554bb5751183a8148d0ee
+  size: 18335858
+redis/redis-2.4.13.tar.gz:
+  object_id: a0aca680-89a4-4d3a-9351-bc7dd4141372
+  sha: 212128b1c7cc0021beb3dae38b7fe957d6743f3b
+  size: 625464
+ruby/bundler-1.1.3.gem:
+  object_id: 60dd62fd-20d3-49cd-a6af-82756bfc9527
+  sha: 64e3aa4457e3d921d766e88b65265ff8b941b306
+  size: 204288
+ruby/ruby-1.9.2-p180.tar.gz:
+  object_id: 9f48a382-1b68-4e7e-a727-7a869c149d8a
+  sha: 6a482bc07239b37bcadf68dda63c65d20dc19ebe
+  size: 11158935
+ruby/rubygems-1.8.24.tgz:
+  object_id: 8f2597a3-199f-46cf-a078-7d401c4fbc32
+  sha: 30f27047e74f7943117736a0d3e224994fee0905
+  size: 380101
+sqlite/sqlite-autoconf-3070500.tar.gz:
+  object_id: f49c7cc6-841e-4589-9a40-507c467095bd
+  sha: 4e1338497b8da50b84307191bb3418e9ec5715d7
+  size: 1551070

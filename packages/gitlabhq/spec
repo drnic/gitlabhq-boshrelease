@@ -1,0 +1,9 @@
+---
+name: gitlabhq
+dependencies:
+- ruby
+- sqlite
+- libpq
+- mysqlclient
+files:
+- gitlabhq/**/*

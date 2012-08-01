@@ -28,6 +28,9 @@ case $1 in
 
     cd $WEBAPP_DIR
 
+    # link gitlab configuration
+    link_job_file_to_package config/gitlab.yml
+
     # link database.yml config to application
     link_sql_db_config
     
@@ -39,6 +42,7 @@ case $1 in
 
     # TODO what is 'ulimit -c unlimited' for; when not to use it?
     ulimit -c unlimited
+    
 
     # Start the rack app using requested appstack
     source $JOB_DIR/bin/ctl_start.sh

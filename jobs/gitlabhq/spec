@@ -12,6 +12,7 @@ templates:
   bin/monit_debugger: bin/monit_debugger
   bin/nginx_ctl: bin/nginx_ctl
   bin/rails_ctl_setup.sh.erb: bin/rails_ctl_setup.sh
+  config/gitlab.yml.erb: config/gitlab.yml
   config/database.yml.erb: config/database.yml
   config/mime.types: config/mime.types
   config/nginx.conf.erb: config/nginx.conf

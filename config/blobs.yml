@@ -83,3 +83,11 @@ sqlite/sqlite-autoconf-3070500.tar.gz:
   object_id: f49c7cc6-841e-4589-9a40-507c467095bd
   sha: 4e1338497b8da50b84307191bb3418e9ec5715d7
   size: 1551070
+icu4c/icu4c-49_1_2-src.tgz:
+  object_id: 5709e069-fab6-489d-af0c-3b4ef9106c6a
+  sha: d8cee6d2b2a91a0da7464acd97a5b7b462d93225
+  size: 19010646
+ruby/bundler-1.2.0.rc.gem:
+  object_id: 8e11103f-f114-4b8e-b92b-f7aff54d3dbb
+  sha: 6c99959aebae912561ead06e67900580168cc853
+  size: 222720

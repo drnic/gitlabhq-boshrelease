@@ -1,0 +1,8 @@
+---
+jobs:
+  - gitlabhq
+properties:
+  webapp:
+    package: rackapp
+    appstack: rackup
+    use_nginx: 1

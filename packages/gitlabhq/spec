@@ -2,6 +2,7 @@
 name: gitlabhq
 dependencies:
 - ruby
+- icu4c
 - sqlite
 - libpq
 - mysqlclient

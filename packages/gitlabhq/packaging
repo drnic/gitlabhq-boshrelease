@@ -15,8 +15,19 @@ cp -a gitlabhq/* ${BOSH_INSTALL_TARGET}
   mysqlclient_dir=/var/vcap/packages/mysqlclient
   libpq_dir=/var/vcap/packages/libpq
 
-  $bundle_cmd config build.mysql2 --with-mysql-dir=$mysqlclient_dir --with-mysql-include=$mysqlclient_dir/include/mysql
-  $bundle_cmd config build.pg --with-pg-lib=$libpq_dir/lib --with-pg-include=$libpq_dir/include
-  $bundle_cmd config build.sqlite3 --with-sqlite3-dir=/var/vcap/packages/sqlite
+  export LDFLAGS="-L/var/vcap/packages/icu4c/lib"
+  export CPPFLAGS="-I/var/vcap/packages/icu4c/include"
+
+  $bundle_cmd config build.mysql2 \
+    --with-mysql-dir=$mysqlclient_dir \
+    --with-mysql-include=$mysqlclient_dir/include/mysql
+  $bundle_cmd config build.pg \
+    --with-pg-lib=$libpq_dir/lib \
+    --with-pg-include=$libpq_dir/include
+  $bundle_cmd config build.sqlite3 \
+    --with-sqlite3-dir=/var/vcap/packages/sqlite
+  $bundle_cmd config build.charlock_holmes \
+    --with-icu-lib=/var/vcap/packages/icu4c/lib  \
+    --with-icu-include=/var/vcap/packages/icu4c/include
   $bundle_cmd install --local --deployment --without development test
 )

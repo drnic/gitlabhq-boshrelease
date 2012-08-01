@@ -8,3 +8,4 @@ tar xzf icu4c/icu4c-49_1_2-src.tgz
 cd icu/source
 ./configure --prefix=${BOSH_INSTALL_TARGET}
 make
+make install

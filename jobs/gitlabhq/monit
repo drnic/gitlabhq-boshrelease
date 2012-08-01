@@ -1,0 +1,13 @@
+check process gitlabhq
+  with pidfile /var/vcap/sys/run/gitlabhq/gitlabhq.pid
+  start program "/var/vcap/jobs/gitlabhq/bin/monit_debugger gitlabhq_ctl '/var/vcap/jobs/gitlabhq/bin/gitlabhq_rack_ctl start'"
+  stop program "/var/vcap/jobs/gitlabhq/bin/monit_debugger gitlabhq_ctl '/var/vcap/jobs/gitlabhq/bin/gitlabhq_rack_ctl stop'"
+  group vcap
+
+<% if properties.gitlabhq && properties.gitlabhq.use_nginx %>
+check process nginx
+  with pidfile /var/vcap/sys/run/gitlabhq/nginx.pid
+  start program "/var/vcap/jobs/gitlabhq/bin/monit_debugger nginx_ctl '/var/vcap/jobs/gitlabhq/bin/nginx_ctl start'"
+  stop program "/var/vcap/jobs/gitlabhq/bin/monit_debugger nginx_ctl '/var/vcap/jobs/gitlabhq/bin/nginx_ctl stop'"
+  group vcap
+<% end %>

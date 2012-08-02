@@ -1,13 +1,14 @@
-#deployment webapp nginx.conf
-<% require 'ostruct' %>
-<% properties.webapp ||= OpenStruct.new %>
-<% properties.webapp.nginx ||= OpenStruct.new %>
-<% package_name = properties.webapp.package || 'rackapp' %>
-<% webapp_port_start = 5000 %>
-
+#deployment gitlabhq nginx.conf
+<% 
+require 'ostruct'
+properties.gitlabhq ||= OpenStruct.new
+nginx = properties.webapp.nginx || (properties.gitlabhq && properties.gitlabhq.nginx)
+nginx ||= OpenStruct.new
+gitlabhq_port_start = 5000
+%>
 user vcap vcap;
-worker_processes <%= properties.webapp.nginx.worker_processes || 1 %>;
-pid /var/vcap/sys/run/webapp/nginx.pid;
+worker_processes <%= nginx.worker_processes || 1 %>;
+pid /var/vcap/sys/run/gitlabhq/nginx.pid;
 
 events {
   worker_connections  8192;
@@ -39,8 +40,8 @@ http {
   gzip_buffers      16 8k;
   gzip_types        application/json text/plain text/css application/x-javascript text/xml application/xml application/xml+rss text/javascript;
 
-  upstream <%= package_name %>_upstream {
-    server 127.0.0.1:<%= webapp_port_start %>;
+  upstream gitlabhq_upstream {
+    server 127.0.0.1:<%= gitlabhq_port_start %>;
   }
 
   server {
@@ -52,7 +53,7 @@ http {
     # By default Nginx will listen for traffic on the specified port for all IP
     # addresses assigned to the host.
     #
-    listen       <%= properties.webapp.nginx.port || 80 %>;
+    listen       <%= nginx.port || 80 %>;
 
     #
     # Server Names
@@ -69,7 +70,7 @@ http {
     # It is good practice to include wildcard subdomains so that Nginx will not
     # require a restart when new services are added for an application.
     #
-    server_name  <%= properties.webapp.nginx.server_name || '_' %>;
+    server_name  <%= nginx.server_name || '_' %>;
     server_name_in_redirect off;
 
     #
@@ -83,15 +84,15 @@ http {
     #
     # The application root which is inherited for all location blocks below.
     #
-    root /var/vcap/packages/<%= package_name %>/public;
+    root /var/vcap/packages/gitlabhq/public;
 
     #
     # Logging
     #
-    # Log files are stored within the /var/vcap/sys/log/webapp/ directory.
+    # Log files are stored within the /var/vcap/sys/log/gitlabhq/ directory.
     #
-    access_log  /var/vcap/sys/log/webapp/<%= package_name %>.access.log  main;
-    error_log   /var/vcap/sys/log/webapp/<%= package_name %>.error.log notice;
+    access_log  /var/vcap/sys/log/gitlabhq/gitlabhq.access.log  main;
+    error_log   /var/vcap/sys/log/gitlabhq/gitlabhq.error.log notice;
 
     #
     # Expire header on assets. For more information on the reasoning behind
@@ -99,14 +100,14 @@ http {
     #
     # set Expire header on assets: see http://developer.yahoo.com/performance/rules.html#expires
     location ~ ^/(images|assets|javascripts|stylesheets)/ {
-      try_files  $uri $uri/index.html /last_assets/$uri /last_assets/$uri.html @app_<%= package_name %>;
+      try_files  $uri $uri/index.html /last_assets/$uri /last_assets/$uri.html @app_gitlabhq;
       expires 10y;
     }
 
     # For Puma, simply proxy
-    location @app_<%= package_name %> {
-      include /var/vcap/jobs/webapp/config/nginx_proxy.conf;
-      proxy_pass http://<%= package_name %>_upstream;
+    location @app_gitlabhq {
+      include /var/vcap/jobs/gitlabhq/config/nginx_proxy.conf;
+      proxy_pass http://gitlabhq_upstream;
     }
 
     #
@@ -143,7 +144,7 @@ http {
     #
     location / {
       if (-f $document_root/system/maintenance.html) { return 503; }
-      try_files $uri $uri/index.html $uri.html @app_<%= package_name %>;
+      try_files $uri $uri/index.html $uri.html @app_gitlabhq;
     }
 
   }

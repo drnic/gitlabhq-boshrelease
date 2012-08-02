@@ -3,7 +3,7 @@
 set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 
-# Setup env vars and folders for the webapp_ctl script
+# Setup env vars and folders for the nginx_ctl script
 source /var/vcap/jobs/gitlabhq/bin/ctl_setup.sh
 
 # Override ctl_setup.sh defaults:
@@ -16,11 +16,6 @@ case $1 in
     pid_guard $PIDFILE "nginx for $JOB_NAME"
 
     echo $$ > $PIDFILE
-
-    for dir in $UPLOADS_DIR $STAGED_UPLOADS_DIR
-    do
-      mkdir -p ${dir}
-    done
 
     exec /var/vcap/packages/nginx_next/sbin/nginx \
          -c $JOB_DIR/config/nginx.conf \

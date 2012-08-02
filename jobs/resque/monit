@@ -1,5 +1,5 @@
 check process resque
   with pidfile /var/vcap/sys/run/resque/webapp.pid
   start program "/var/vcap/jobs/resque/bin/monit_debugger resque_ctl '/var/vcap/jobs/resque/bin/resque_ctl start'"
-  stop program "/var/vcap/jobs/webapp/bin/monit_debugger resque_ctl '/var/vcap/jobs/resque/bin/resque_ctl stop'"
+  stop program "/var/vcap/jobs/resque/bin/monit_debugger resque_ctl '/var/vcap/jobs/resque/bin/resque_ctl stop'"
   group vcap

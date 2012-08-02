@@ -18,14 +18,8 @@ link_job_file_to_package() {
 
   echo "Linking ${job_file} -> ${full_package_file}"
   mkdir -p $(dirname ${full_package_file})
-  if [[ -f ${full_package_file} ]]
-  then
-    mv ${full_package_file}{,.orig}
-  fi
-  if [[ ! -L ${full_package_file} ]]
-  then
-    ln -s ${full_job_file} ${full_package_file}
-  fi
+  rm -rf ${full_package_file}
+  ln -s ${full_job_file} ${full_package_file}
 }
 
 

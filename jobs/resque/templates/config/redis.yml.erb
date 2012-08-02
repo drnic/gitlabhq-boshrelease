@@ -1,0 +1,15 @@
+<% if properties.redis
+host =  properties.redis.host || 'localhost'
+port = properties.redis.port || 6379
+framework_env = (properties.webapp && properties.webapp.framework_env) || 'production'
+%>---
+host: '<%= host %>'
+port: <%= port %>
+uri: 'redis://<%= host %>:<%= port %>'
+<%= framework_env %>:
+  host: '<%= host %>'
+  port: <%= port %>
+  uri: 'redis://<%= host %>:<%= port %>'
+<% else %>
+--- {}
+<% end %>

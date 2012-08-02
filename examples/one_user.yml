@@ -1,8 +1,9 @@
 ---
 jobs:
+- redis
 - gitolite
 - gitlabhq
-- redis
+- resque
 properties:
   git:
     login: git

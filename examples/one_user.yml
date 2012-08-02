@@ -19,8 +19,7 @@ properties:
         min: 0
         max: 20
     migrate: 1
-    migration_command: rake db:migrate
+    migration_command: rake db:migrate --trace
   redis:
     host: 127.0.0.1
     port: 6379 
-    password: rEd!s

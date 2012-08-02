@@ -24,6 +24,8 @@ fi
 function run_migrations() {
   if [[ "${migrate}" = "true" || "${migrate}" = "1" || "${migrate}" = "yes" ]]
   then
+    cd $WEBAPP_DIR
+    
     wait_for_database
 
     echo "Running migrations"

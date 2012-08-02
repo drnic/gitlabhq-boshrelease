@@ -4,6 +4,8 @@ set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 set +x
 
+initial_example='examples/one_user.yml'
+
 if [[ ! -f ~/install_dependencies_complete ]]
 then
   echo Installing dependencies for bosh-solo
@@ -31,7 +33,12 @@ then
 
   touch ~/install_dependencies_complete
   
-  sudo echo "rvm 1.9.3 --default" >> /home/vagrant/.bashrc
 fi
 
-# TODO run: sm bosh-solo update examples/dev-solo.yml or rel.yml
+# FIXME - why doesn't this work?
+# echo '${initial_example}' ${initial_example}
+# 
+# if [[ ${initial_example} != '' && -f /vagrant/${initial_example} ]]
+# then
+#   sudo /opt/sm/bin/sm bosh-solo update /vagrant/${initial_example}
+# fi

@@ -3,6 +3,9 @@ Vagrant::Config.run do |config|
   config.vm.box_url = "http://files.vagrantup.com/lucid64.box"
 
   config.vm.forward_port 80,   5001
+  config.vm.forward_port 5000, 5000 # direct to gitlabhq puma
+
+  config.vm.network :hostonly, "33.33.33.30"
 
   config.vm.provision :shell, :path => "scripts/vagrant-setup.sh"
 

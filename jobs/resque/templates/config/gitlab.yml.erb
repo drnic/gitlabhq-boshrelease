@@ -1,7 +1,15 @@
 # # # # # # # # # # # # # # # # # # 
 # Gitlab application config file  #
 # # # # # # # # # # # # # # # # # #
-
+<% 
+require 'ostruct'
+properties.admin    ||= OpenStruct.new
+properties.git      ||= OpenStruct.new
+properties.gitolite ||= OpenStruct.new
+git_login     = properties.git.login || 'git'
+admin_email   = properties.admin.email || 'notify@localhost'
+gitolite_host = properties.gitolite.host || 'localhost'
+%>
 #
 # 1. Common settings
 # ==========================
@@ -15,7 +23,7 @@ web:
 # Email used for notification
 # about new issues, comments
 email:
-  from: notify@localhost
+  from: <%= admin_email %>
 
 # Application specific settings
 # Like default project limit for user etc
@@ -31,10 +39,11 @@ app:
 
 # Git Hosting configuration
 git_host:
-  admin_uri: git@localhost:gitolite-admin
+  # admin_uri: git@gitolite.mycompany.com:gitolite-admin
+  admin_uri: '<%= git_login %>@<%= gitolite_host %>:gitolite-admin'
   base_path: /home/git/repositories/
   # host: localhost
-  git_user: git
+  git_user: <%= git_login %>
   upload_pack: true
   receive_pack: true
   # port: 22
@@ -43,7 +52,7 @@ git_host:
 # Git settings
 # Use default values unless you understand it
 git:
-  path: /usr/bin/git
+  path: /var/vcap/packages/git/bin/git
   # Max size of git object like commit, in bytes
   # This value can be increased if you have a very large commits
   git_max_size: 5242880 # 5.megabytes

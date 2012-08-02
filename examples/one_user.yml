@@ -14,6 +14,8 @@ properties:
   webapp:
     package: gitlabhq
     use_nginx: 1
+    nginx:
+      port: 80
     appstack: puma
     puma:
       threads:
@@ -21,6 +23,9 @@ properties:
         max: 20
     migrate: 1
     migration_command: rake db:migrate --trace
+  gitolite:
+    nginx:
+      port: 81 # to not conflict with gitlabhq as primary :80
   redis:
     host: 127.0.0.1
     port: 6379 

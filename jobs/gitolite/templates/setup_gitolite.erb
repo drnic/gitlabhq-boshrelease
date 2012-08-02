@@ -12,7 +12,7 @@ export GIT_USER='<%= (properties.git && properties.git.login) || 'git' %>'
 export GIT_USER_GRP=${GIT_USER}:${GIT_USER}
 export GIT_PASSWORD="<%= (properties.git && properties.git.password) || '${GIT_USER}' %>"
 export GIT_HOME="/home/${GIT_USER}"
-export GIT_INITIAL_KEY='<%= properties.git.initial_admin_key %>'
+export ADMIN_PUB_KEY='<%= properties.admin.admin_pub_key %>'
 
 export HOME=${GIT_HOME}
 packages=/var/vcap/packages
@@ -39,7 +39,7 @@ export PATH=${packages}/gitolite/src:$PATH
 
 chpst -u ${GIT_USER_GRP} ${packages}/gitolite/install
 
-echo "${GIT_INITIAL_KEY}" > ${GIT_HOME}/${GIT_USER}.pub
+echo "${ADMIN_PUB_KEY}" > ${GIT_HOME}/${GIT_USER}.pub
 chown ${GIT_USER_GRP} ${GIT_HOME}/${GIT_USER}.pub
 
 # TODO how to make idempotent? what is it doing?

@@ -11,4 +11,5 @@ sm bosh-solo rvm boshruby
 rvm ext-boshruby
 cd /var/vcap/packages/gitlabhq
 RAILS_ENV=production rake gitlab:app:status
+rvm default
 ```

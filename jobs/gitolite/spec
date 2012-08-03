@@ -9,7 +9,10 @@ packages:
 - common
 templates:
   nginx_ctl:          bin/nginx_ctl
+  bin/ctl_setup.sh.erb: bin/ctl_setup.sh
+  bin/ctl_utils.sh: bin/ctl_utils.sh
   nginx.conf.erb:     config/nginx.conf
   nginx_proxy.conf:   config/nginx_proxy.conf
   mime.types:         config/mime.types
   setup_gitolite.erb: bin/setup_gitolite
+  dot.gitolite.rc:    config/dot.gitolite.rc

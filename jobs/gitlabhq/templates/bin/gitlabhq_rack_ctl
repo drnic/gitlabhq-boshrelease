@@ -33,13 +33,6 @@ case $1 in
   start)
     pid_guard $PIDFILE $JOB_NAME
 
-    cd $WEBAPP_DIR
-    
-    # set group to gitlab for all app files
-    # make it group writable
-    chgrp $RUNAS -R *
-    chmod g+w -R *
-    
     # Following gitlab-specific instructions for installing gitolite/gitlabhq
     # https://github.com/gitlabhq/gitlabhq/blob/stable/doc/installation.md#3-install-gitolite
     
@@ -49,6 +42,14 @@ case $1 in
     usermod -a -G git $RUNAS
     # install pre-generated keys
     install_keypair "$ADMIN_USER_PUB_KEY" "$ADMIN_USER_PRIV_KEY" "$RUNAS" "id_rsa"
+    
+
+    cd $WEBAPP_DIR
+    
+    # set group to gitlab for all app files
+    # make it group writable
+    chgrp $RUNAS -R *
+    chmod g+w -R *
     
     # link gitlab configuration
     link_job_file_to_package config/gitlab.yml

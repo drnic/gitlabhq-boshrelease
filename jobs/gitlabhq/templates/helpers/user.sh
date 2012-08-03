@@ -37,11 +37,11 @@ function install_keypair() {
   chmod 700 ${ssh_dir}
   chown ${login}:${login} ${ssh_dir}
   
-  echo ${pubkey} > ${ssh_dir}/${keyname}.pub
+  echo "${pubkey}" > ${ssh_dir}/${keyname}.pub
   chmod 644 ${ssh_dir}/${keyname}.pub
   chown ${login}:${login} ${ssh_dir}/${keyname}.pub
   
-  echo ${privkey} > ${ssh_dir}/${keyname}
+  echo "${privkey}" > ${ssh_dir}/${keyname}
   chmod 600 ${ssh_dir}/${keyname}
   chown ${login}:${login} ${ssh_dir}/${keyname}
 }

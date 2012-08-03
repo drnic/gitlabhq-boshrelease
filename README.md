@@ -8,8 +8,9 @@ Whilst developing this release, you can check how GitLabHQ feels about things wi
 
 ```
 sm bosh-solo rvm boshruby
+
+su - gitlab
 rvm ext-boshruby
 cd /var/vcap/packages/gitlabhq
 RAILS_ENV=production rake gitlab:app:status
-rvm default
 ```

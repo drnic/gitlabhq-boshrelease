@@ -8,5 +8,5 @@ blobstore:
     access_key_id: AKIAJ57X7JZGTCFGWY7A
     secret_access_key: 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
     encryption_key: asdfasfdasdfasdf
-min_cli_version: 0.19.4
+min_cli_version: 0.19.5
 final_name: gitlabhq

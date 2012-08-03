@@ -7,8 +7,35 @@ jobs:
 properties:
   admin:
     email: drnicwilliams+gitlabhqdemo@gmail.com
-    admin_priv_key: ""
-    admin_pub_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTUdTt0T9j6UxN6izjITtYytbQNfmRrkD4xf4yEPyewFGXrSPkcgmTrJmQAEYSM6cqYwnNrTZHtILagi0Ww5wPDU06PaRvSOQmggUfHCU8az2yZ+ouDe25vuIfEe9z2x9tVwBQ/j4CI5lBLpANJl2HtEVghHU/x9vWcJXYgedezVFxIlZcXKl92T5VcOcuCRgjtcoDBW74nQ/JmalGH6ZDRd4yg2+aE8e08Q2ZO9pYCIsyCuAbokQgOv188OhgFuS3QypyuElU36s+q5toFQ/+8v5EiJGOxmFPAHjkDIh1hcZl6GwTFGgqlHG4w33E9ke3ZIYz6jhlqLWQyZTL5NrT drnic@drnic
+    admin_priv_key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEowIBAAKCAQEA9J3jZIpybxV4sav9NILaTRSc8drEJxERjGO43w9p48KbBvSY
+      V6PQaHXzUiPNKol3Vir5bpeB/nUN/OfX0jYKIS2lijKnMsxYPsSsn6KYdpgQ47RM
+      JHrdZBBFS2AcVv/Rw0Jpkd+5JcpVOufVdqrUBlRx+fp8ffQv5x5AmQHMeK+OZD2l
+      dtW75Lo6BBMeDd2Bn/V4JS2Uin9q7ctaHa8O9PjTqLI4z9MIF5qNP53JXFNZoPSI
+      NF/iotVvqjZFXVWHdkOhetAp3WSrjPr1zUEDRehN/a3f61O66RHrdOs2q04QGSj7
+      nAXV8SmmN8jt5cyja/4N4wh8cll4Wdjgh47qrQIDAQABAoIBAEZPH23lkVC2djNz
+      QNsYBVEEbLvjal/kOwwEGb4bew8Y/2A3a5Y9Iojz5hUk7zKbwm5E+d68s4OE95lK
+      tjDYkX7J1Pvs5TvnmjGobAmSPYpQ2QHp77zIh9vcBV7N6DdlXlBmRVvFVz0yc97z
+      hdqO7VRIb14vjhrR1fbzLhQMfU3ub/nFO/ukavloxs/nZjbMIHNVtbaLWY91EcX2
+      Lv7REqnCidJPdm8D8JE4mUFkFgpOYtFOQrvl9IYWD2NolPLh4rn0DvpeCrgx0NyQ
+      lOzLIyD7b6TICiR6iAFGD3uG9E1bmgisVBk9k/mnW7/LEH9SsPGkis89lScsovv7
+      tB5FXiECgYEA/o7BFiNZdsEuGPRgcsgT9ddMxlrexn/ku57OzTFHo4bCg+SStOr6
+      1xIR21k6kPk++4m+70dIxuR/iWlK05Rt7IehEtrhrRKnGnsDWUyYQJIoTj3jSb+7
+      7J1mmXI2IZFU7hqoVGOsfXEk7jKYZ6B0DUGoRoOjEEMBbVw4mBWiO2UCgYEA9gC2
+      4QvODEeNKLQRxa0Dro4Ypoi4Zl0km/8QDZied6MI6YPS2x+XFg5rdK0IL85laxLV
+      DTBTWSvFJJlyePs32PXatowTcDDIV88mw0+xT1Uq57tyX4fEREMGYOXEiXGM2o9X
+      v+Ru9wON3cyWrbtVkN/MpZOazMK/NF1cOLU0EakCgYBYyN2bpRStEM/NMF77acFc
+      e41xmXwd67mRnuAuPUPpSzVI304z/8khflHwGX0N14EaJn8L4ecGR+gbuze3+Asm
+      9l89vk38GYdi+wi9+rMXwmKAd6FwtYkMDBIe7vDmYFQo/+86D9G3puDkm40Ah7wy
+      a3YPshYLs/Mpe4LZuKHu6QKBgBLidSeLh3LL31s7j420PW8d+2h1YGqDRfcvumTA
+      zZFzk5CRjRNDNo775mXbjqBU4NY6aN6NUiirQoQPv4joCB6AqRyQXkGjjQ2omlot
+      +PeVGykU66/HtVpkJs4zdUXz0JNKo7rYZ2hQ/ogDV6HYmrX3aDdhwGVtoc38SMMV
+      rfyZAoGBAJXyW5+KOxA4NUXh8UeRTD/cJ+i+G/qIpk/h92nSxqSglXzDXSHK+YWf
+      gJyBYL0JWayIBW0XDjtTPCMsCHVDqWP9mh/csZXaevAcj+XfTSpATooq7wIJLmg5
+      bLsXWewMBJCxAE1HxE09AlhE/u3kl9235rtnbrRgpf0x4/RwPLz4
+      -----END RSA PRIVATE KEY-----
+    admin_pub_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD0neNkinJvFXixq/00gtpNFJzx2sQnERGMY7jfD2njwpsG9JhXo9BodfNSI80qiXdWKvlul4H+dQ3859fSNgohLaWKMqcyzFg+xKyfoph2mBDjtEwket1kEEVLYBxW/9HDQmmR37klylU659V2qtQGVHH5+nx99C/nHkCZAcx4r45kPaV21bvkujoEEx4N3YGf9XglLZSKf2rty1odrw70+NOosjjP0wgXmo0/nclcU1mg9Ig0X+Ki1W+qNkVdVYd2Q6F60CndZKuM+vXNQQNF6E39rd/rU7rpEet06zarThAZKPucBdXxKaY3yO3lzKNr/g3jCHxyWXhZ2OCHjuqt demo@gitolite
   git:
     login: git
   users:

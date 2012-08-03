@@ -18,3 +18,5 @@ templates:
   config/nginx.conf.erb: config/nginx.conf
   config/nginx_proxy.conf: config/nginx_proxy.conf
   config/redis.yml.erb: config/redis.yml
+  helpers/user.sh: helpers/user.sh
+  data/properties.sh.erb: data/properties.sh

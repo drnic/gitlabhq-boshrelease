@@ -33,6 +33,10 @@ then
   echo 'export PATH=${packages}/gitolite/src:$PATH' >> ${GIT_HOME}/.bashrc
 fi
 
+mkdir -p ${GIT_HOME}/repositories/
+# writable by git group
+chmod 775 -R ${GIT_HOME}/repositories/
+
 export PATH=${packages}/perl/bin:$PATH
 export PATH=${packages}/git/bin:$PATH
 export PATH=${packages}/gitolite/src:$PATH

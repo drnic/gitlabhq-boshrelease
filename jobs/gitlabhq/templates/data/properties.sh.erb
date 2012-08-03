@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+
+# the package that contains the application code
+export WEBAPP_PACKAGE='<%= (properties.webapp && properties.webapp.package) || 'gitlabhq' %>' 
+export WEBAPP_DIR=/var/vcap/packages/$WEBAPP_PACKAGE
+
+export ADMIN_USER_PUB_KEY='<%= properties.admin.admin_pub_key %>'
+export ADMIN_USER_PRIV_KEY='<%= properties.admin.admin_priv_key %>'
+
+export GIT_LOGIN='<%= (properties.git && properties.git.login) || 'git' %>'

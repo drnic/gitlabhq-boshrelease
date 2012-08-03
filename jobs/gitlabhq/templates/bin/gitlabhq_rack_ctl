@@ -21,13 +21,26 @@ source $JOB_DIR/bin/ctl_db_utils.sh
 # Helpers for Redis
 source $JOB_DIR/bin/ctl_redis_utils.sh
 
+# Helper for setting up users
+source $JOB_DIR/helpers/user.sh
+
 case $1 in
 
   start)
     pid_guard $PIDFILE $JOB_NAME
 
     cd $WEBAPP_DIR
-
+    
+    # Following gitlab-specific instructions for installing gitolite/gitlabhq
+    # https://github.com/gitlabhq/gitlabhq/blob/stable/doc/installation.md#3-install-gitolite
+    
+    # create gitlabhq user, with keys that work with gitolite job
+    create_user "gitlab" "gitlab system"
+    # add user to git group
+    usermod -a -G git gitlab
+    # install pre-generated keys
+    install_keypair "$ADMIN_USER_PUB_KEY" "$ADMIN_USER_PRIV_KEY" "gitlab" "id_rsa"
+    
     # link gitlab configuration
     link_job_file_to_package config/gitlab.yml
 

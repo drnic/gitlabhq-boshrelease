@@ -38,8 +38,9 @@ case $1 in
     
     # create gitlabhq user, with keys that work with gitolite job
     create_user "$RUNAS" "gitlab system"
-    # add user to git group
+    # add user to git & vcap groups
     usermod -a -G git $RUNAS
+    usermod -a -G vcap $RUNAS
     # install pre-generated keys
     install_keypair "$ADMIN_USER_PUB_KEY" "$ADMIN_USER_PRIV_KEY" "$RUNAS" "id_rsa"
     

@@ -24,7 +24,7 @@
 # * $PIDFILE
 # * $PORT
 function ctl_start() {
-  user=${1:-vcap}
+  runas=${1:-vcap}
   appstack='<%= properties.webapp && properties.webapp.appstack %>'
 
   echo "Launching $JOB_NAME within $WEBAPP_DIR with ${appstack}"
@@ -35,19 +35,19 @@ function ctl_start() {
     <% puma_threads = properties.webapp.puma && properties.webapp.puma.threads %>
     MIN_THREADS=<%= (puma_threads && puma_threads.min) || 0 %>
     MAX_THREADS=<%= (puma_threads && puma_threads.max) || 16 %>
-    chpst -u ${user}:${user} bundle exec puma --pidfile $PIDFILE -p $PORT -t $MIN_THREADS:$MAX_THREADS \
+    chpst -u ${runas}:${runas} bundle exec puma --pidfile $PIDFILE -p $PORT -t $MIN_THREADS:$MAX_THREADS \
          >>$LOG_DIR/webapp.stdout.log \
          2>>$LOG_DIR/webapp.stderr.log || exit 1
 
   elif [[ "${appstack}" = "rackup" ]]
   then
-    chpst -u ${user}:${user} bundle exec rackup -D -P $PIDFILE -p $PORT \
+    chpst -u ${runas}:${runas} bundle exec rackup -D -P $PIDFILE -p $PORT \
          >>$LOG_DIR/webapp.stdout.log \
          2>>$LOG_DIR/webapp.stderr.log || exit 1
 
   elif [[ "${appstack}" = "phpfpm" || "${appstack}" = "php-fpm" ]]
   then
-    chpst -u ${user}:${user} /var/vcap/packages/php5/sbin/php-fpm \
+    chpst -u ${runas}:${runas} /var/vcap/packages/php5/sbin/php-fpm \
       -c $JOB_DIR/etc/php.ini \
       --fpm-config $JOB_DIR/etc/php-fpm.conf \
       --pid $PIDFILE
@@ -58,6 +58,6 @@ function ctl_start() {
     exit 1
   fi
 
-  chown vcap:vcap $PIDFILE
+  chown ${runas}:vcap $PIDFILE
 }
 

@@ -4,18 +4,16 @@
 source /var/vcap/jobs/gitolite/bin/ctl_setup.sh
 
 # Override ctl_setup.sh defaults:
-redirect_output 'nginx'
+redirect_output 'gitolite-nginx'
 PIDFILE=$RUN_DIR/nginx.pid
 
 case $1 in
 
   start)
-    pid_guard $PIDFILE "gitolite nginx"
+    pid_guard $PIDFILE "gitolite-nginx"
 
     # Setup git user & env variables
     source /var/vcap/jobs/gitolite/bin/setup_gitolite
-    
-    link_job_file config/dot.gitolite.rc $GIT_HOME/.gitolite.rc
     
     echo $$ > $PIDFILE
 
@@ -27,7 +25,7 @@ case $1 in
     ;;
 
   stop)
-    echo "Stopping nginx"
+    echo "Stopping gitolite-nginx"
     kill_and_wait $PIDFILE
     ;;
 

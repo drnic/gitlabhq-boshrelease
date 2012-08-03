@@ -6,8 +6,12 @@ set -u # report the usage of uninitialized variables
 # Setup env vars and folders for the gitlabhq_rack_ctl script
 source /var/vcap/jobs/gitlabhq/bin/ctl_setup.sh
 
+# Load start helper
+source $JOB_DIR/bin/ctl_start.sh
+
 export PORT=${PORT:-5000}
 export LANG=en_US.UTF-8
+export RUNAS=gitlab
 
 # Setup HTTP_PROXY, HTTPS_PROXY, NO_PROXY as necessary
 source $JOB_DIR/bin/ctl_nginx.sh
@@ -31,15 +35,20 @@ case $1 in
 
     cd $WEBAPP_DIR
     
+    # set group to gitlab for all app files
+    # make it group writable
+    chgrp $RUNAS -R *
+    chmod g+w -R *
+    
     # Following gitlab-specific instructions for installing gitolite/gitlabhq
     # https://github.com/gitlabhq/gitlabhq/blob/stable/doc/installation.md#3-install-gitolite
     
     # create gitlabhq user, with keys that work with gitolite job
-    create_user "gitlab" "gitlab system"
+    create_user "$RUNAS" "gitlab system"
     # add user to git group
-    usermod -a -G git gitlab
+    usermod -a -G git $RUNAS
     # install pre-generated keys
-    install_keypair "$ADMIN_USER_PUB_KEY" "$ADMIN_USER_PRIV_KEY" "gitlab" "id_rsa"
+    install_keypair "$ADMIN_USER_PUB_KEY" "$ADMIN_USER_PRIV_KEY" "$RUNAS" "id_rsa"
     
     # link gitlab configuration
     link_job_file_to_package config/gitlab.yml
@@ -51,16 +60,18 @@ case $1 in
     link_redis_config yaml config/redis.yml
 
     # Migrations, if requested
-    run_migrations $WEBAPP_DIR
-
+    run_migrations "$RUNAS"
+    
     # TODO what is 'ulimit -c unlimited' for; when not to use it?
     ulimit -c unlimited
     
-
     # Start the rack app using requested appstack
-    source $JOB_DIR/bin/ctl_start.sh
+    ctl_start "$RUNAS"
 
     echo "Running $JOB_NAME on $PORT"
+
+    # world-readable logs
+    chmod 666 log/*.log
     ;;
 
   stop)

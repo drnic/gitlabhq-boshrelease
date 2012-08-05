@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
 # Helper to create a linux user
 # Usage:
 #  create_user $user $general_info
@@ -9,10 +12,20 @@ function create_user() {
   login_home="/home/${login}"
   if [[ ! -d ${login_home} ]]
   then
+    echo /usr/sbin/adduser \
+        --system \
+        --shell /bin/bash \
+        --gecos "${general_info}" \
+        --uid 111 \
+        --group \
+        --disabled-password \
+        --home ${login_home} ${login}
+    # different UID value from git user
     /usr/sbin/adduser \
         --system \
         --shell /bin/bash \
         --gecos "${general_info}" \
+        --uid 111 \
         --group \
         --disabled-password \
         --home ${login_home} ${login}

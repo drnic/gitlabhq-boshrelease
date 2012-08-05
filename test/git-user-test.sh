@@ -42,7 +42,7 @@ before_all() {
   sm bosh-solo update ${example}
 
   # wait for everything to boot up, migrate, create users, etc
-  sleep 20
+  sleep 30
 
   # show last 20 processes (for debugging if test fails)
   ps ax | tail -n 20
@@ -84,7 +84,7 @@ it_restarted_nginx() {
 }
 
 it_runs_gitlabhq_using_puma() {
-  expected='puma --pidfile /var/vcap/sys/run/gitlabhq/gitlabhq.pid -p 5000 -t 0:16'
+  expected='puma --pidfile /var/vcap/sys/run/gitlabhq/gitlabhq.pid -p 5000 -t 0:20'
   test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 1
 }
 

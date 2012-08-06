@@ -6,5 +6,6 @@ dependencies:
 - sqlite
 - libpq
 - mysqlclient
+- git
 files:
 - gitlabhq/**/*

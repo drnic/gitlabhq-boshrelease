@@ -6,6 +6,9 @@ export HOME=/var/vcap
 PATH=/var/vcap/packages/ruby/bin:$PATH
 PATH=/var/vcap/packages/sqlite/bin:$PATH
 
+# some vendor'd rubygems gemspec's need "git ls-files"
+PATH=/var/vcap/packages/git/bin:$PATH
+
 cp -a gitlabhq/* ${BOSH_INSTALL_TARGET}
 
 (
@@ -26,5 +29,5 @@ cp -a gitlabhq/* ${BOSH_INSTALL_TARGET}
   bundle config build.charlock_holmes \
     --with-icu-lib=${icu4c_dir}/lib  \
     --with-icu-include=${icu4c_dir}/include
-  bundle install --local --deployment --without development test
+  bundle install --local --deployment --binstubs --without development test
 )

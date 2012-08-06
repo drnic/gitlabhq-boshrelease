@@ -5,7 +5,7 @@ packages:
 - ruby
 templates:
   bin/resque_ctl: bin/resque_ctl
-  bin/ctl_setup.sh.erb: bin/ctl_setup.sh
+  bin/ctl_setup.sh: bin/ctl_setup.sh
   bin/ctl_utils.sh: bin/ctl_utils.sh
   bin/ctl_db_utils.sh.erb: bin/ctl_db_utils.sh
   bin/ctl_redis_utils.sh.erb: bin/ctl_redis_utils.sh

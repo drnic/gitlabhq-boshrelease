@@ -53,10 +53,8 @@ case $1 in
 
     cd $WEBAPP_DIR
     
-    # set group to gitlab for all app files
-    # make it group writable
-    chgrp $RUNAS -R *
-    chmod g+w -R *
+    # TODO what user/group to change code base into?
+    ctl_start_prepare_webapp "$RUNAS" $WEBAPP_DIR
     
     # link gitlab configuration
     link_job_file_to_package config/gitlab.yml
@@ -77,7 +75,7 @@ case $1 in
     ulimit -c unlimited
     
     # Start the rack app using requested appstack
-    ctl_start "$RUNAS"
+    ctl_start "$RUNAS" $WEBAPP_DIR
 
     echo "Running $JOB_NAME on $PORT"
     ;;

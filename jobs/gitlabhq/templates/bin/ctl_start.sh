@@ -25,7 +25,10 @@
 # * $PORT
 function ctl_start() {
   runas=${1:-vcap}
-  appstack='<%= properties.webapp && properties.webapp.appstack %>'
+  webapp_dir=${2:-$WEBAPP_DIR}
+  cd ${webapp_dir}
+
+  appstack=${3:-$WEBAPP_APPSTACK}
 
   echo "Launching $JOB_NAME within $WEBAPP_DIR with ${appstack}"
   wait_for_database
@@ -60,5 +63,16 @@ function ctl_start() {
 
   chown ${runas} $PIDFILE
   chgrp vcap $PIDFILE
+}
+
+# Requires env variables:
+# * $WEBAPP_DIR
+function ctl_start_prepare_webapp() {
+  runas=${1:-vcap}
+  webapp_dir=${2:-$WEBAPP_DIR}
+
+  chown ${runas} -R ${webapp_dir}/*
+  chgrp vcap -R ${webapp_dir}/*
+  chmod g+w -R ${webapp_dir}/*
 }
 

@@ -7,6 +7,7 @@ templates:
   bin/resque_ctl: bin/resque_ctl
   bin/ctl_setup.sh: bin/ctl_setup.sh
   bin/ctl_utils.sh: bin/ctl_utils.sh
+  bin/ctl_start.sh: bin/ctl_start.sh
   bin/ctl_db_utils.sh.erb: bin/ctl_db_utils.sh
   bin/ctl_redis_utils.sh.erb: bin/ctl_redis_utils.sh
   bin/monit_debugger: bin/monit_debugger
@@ -14,3 +15,4 @@ templates:
   config/gitlab.yml.erb: config/gitlab.yml
   config/database.yml.erb: config/database.yml
   config/redis.yml.erb: config/redis.yml
+  data/properties.sh.erb: data/properties.sh

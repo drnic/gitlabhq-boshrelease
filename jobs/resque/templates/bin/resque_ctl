@@ -6,7 +6,13 @@ set -u # report the usage of uninitialized variables
 # Setup env vars and folders for the webapp_ctl script
 source /var/vcap/jobs/resque/bin/ctl_setup.sh 'resque'
 
+# Load start helper
+source $JOB_DIR/bin/ctl_start.sh
+
 export LANG=en_US.UTF-8
+
+# RUNAS user is a member of vcap group
+export RUNAS=gitlab
 
 # Setup for Rails application
 source $JOB_DIR/bin/rails_ctl_setup.sh
@@ -22,7 +28,25 @@ case $1 in
   start)
     pid_guard $PIDFILE $JOB_NAME
 
+    # Following gitlab-specific instructions for installing gitolite/gitlabhq
+    # https://github.com/gitlabhq/gitlabhq/blob/stable/doc/installation.md#3-install-gitolite
+
+    create_user "$RUNAS" "gitlab system"
+    # add user to git & vcap groups
+    if [ "$(cat /etc/group | grep '^git:')" = '' ]
+    then
+      groupadd git
+    fi
+    usermod -a -G git $RUNAS
+    usermod -a -G vcap $RUNAS
+
+    # install pre-generated keys
+    install_keypair "$ADMIN_USER_PUB_KEY" "$ADMIN_USER_PRIV_KEY" "$RUNAS" "id_rsa"
+
     cd $WEBAPP_DIR
+
+    # TODO what user/group to change code base into?
+    ctl_start_prepare_webapp "$RUNAS" $WEBAPP_DIR
 
     # link gitlab configuration
     link_job_file_to_package config/gitlab.yml
@@ -36,7 +60,7 @@ case $1 in
     # FIXME - run more than 1 worker
     # FIXME - run as vcap
     # see gitlabhq/resque.sh
-    bundle exec rake environment resque:work \
+    chpst -u $RUNAS:vcap bundle exec rake environment resque:work \
         QUEUE=post_receive,mailer,system_hook VERBOSE=1 \
         PIDFILE=$PIDFILE BACKGROUND=yes \
         >>$LOG_DIR/$JOB_NAME.stdout.log \

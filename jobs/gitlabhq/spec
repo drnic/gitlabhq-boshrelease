@@ -5,10 +5,10 @@ templates:
   bin/gitlabhq_rack_ctl: bin/gitlabhq_rack_ctl
   bin/ctl_setup.sh: bin/ctl_setup.sh
   bin/ctl_utils.sh: bin/ctl_utils.sh
+  bin/ctl_start.sh: bin/ctl_start.sh
   bin/ctl_db_utils.sh.erb: bin/ctl_db_utils.sh
   bin/ctl_nginx.sh.erb: bin/ctl_nginx.sh
   bin/ctl_redis_utils.sh.erb: bin/ctl_redis_utils.sh
-  bin/ctl_start.sh.erb: bin/ctl_start.sh
   bin/monit_debugger: bin/monit_debugger
   bin/nginx_ctl: bin/nginx_ctl
   bin/rails_ctl_setup.sh.erb: bin/rails_ctl_setup.sh

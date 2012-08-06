@@ -93,3 +93,8 @@ it_runs_gitlabhq_nginx() {
   test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 1
 }
 
+it_runs_resque_workers() {
+  expected='bundle exec rake environment resque:work'
+  test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 1
+}
+

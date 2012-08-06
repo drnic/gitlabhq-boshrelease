@@ -55,7 +55,6 @@ properties:
     migration_command: rake db:migrate --trace
   gitolite:
     host: 127.0.0.1
-    
     nginx:
       port: 81 # to not conflict with gitlabhq as primary :80
   redis:

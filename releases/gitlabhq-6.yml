@@ -1,0 +1,88 @@
+--- 
+packages: 
+- name: common
+  version: 1
+  sha1: 5591f980331fb37ce7e0c8aba85a01ca0ebf4d41
+  dependencies: []
+
+- name: gettext
+  version: 2
+  sha1: 06b26b2c6fdbb9e58fa7e02ce26d7491f4381b94
+  dependencies: []
+
+- name: git
+  version: 1
+  sha1: 5f443ed32d6559e953ccd7c2cde4c58c99421839
+  dependencies: 
+  - perl
+  - gettext
+- name: gitlabhq
+  version: 3
+  sha1: 0b0b70f2c5310e87dbad866b41283ed4ea4a2e5f
+  dependencies: 
+  - ruby
+  - icu4c
+  - sqlite
+  - libpq
+  - mysqlclient
+- name: gitolite
+  version: 2
+  sha1: e9fce17aefac1de9c5449e1a2ce09c9d85092e1c
+  dependencies: 
+  - perl
+  - git
+- name: icu4c
+  version: 1
+  sha1: a15a1fa933cfb02bb7d4f63c64e628db191d8e7c
+  dependencies: []
+
+- name: libpq
+  version: 1
+  sha1: c154ba544ac507498e17fe0ad33d433748e0b08c
+  dependencies: []
+
+- name: mysqlclient
+  version: 1
+  sha1: 7da8ec308af690bd1200a3f00c8572f08c8b073e
+  dependencies: []
+
+- name: nginx_next
+  version: 2
+  sha1: 0e9e9609a79d5e1281a58c2fe1dc32ada3df6042
+  dependencies: []
+
+- name: perl
+  version: 1
+  sha1: b870c0fa237ebd1ed7f7292b0b035bfb5eef2b7e
+  dependencies: []
+
+- name: redis
+  version: 1
+  sha1: e9912c0321cdb18554a271ae3ef5b87313138d5f
+  dependencies: []
+
+- name: ruby
+  version: 1
+  sha1: a212b1d550f0d0ad6e774d296371515b4e18b7e5
+  dependencies: []
+
+- name: sqlite
+  version: 1
+  sha1: 304d00b58e84e7526553d0286b4760514ba4199c
+  dependencies: []
+
+jobs: 
+- name: gitlabhq
+  version: 3
+  sha1: 2e214d3bbd22ccd02c8f492e9854436ce5cad8a4
+- name: gitolite
+  version: 5
+  sha1: 85335e14174299aea302a41d316d3485f23282cc
+- name: redis
+  version: 1
+  sha1: fe6406cc4cfff3dd3232eca80a8b5e19319eaa8e
+- name: resque
+  version: 2
+  sha1: a08a8e438e20100fc2b4d78000fee0cdd9e8e79f
+name: gitlabhq
+version: 6

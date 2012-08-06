@@ -58,6 +58,7 @@ function ctl_start() {
     exit 1
   fi
 
-  chown ${runas}:vcap $PIDFILE
+  chown ${runas} $PIDFILE
+  chgrp vcap $PIDFILE
 }
 

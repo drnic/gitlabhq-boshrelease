@@ -1,5 +1,16 @@
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
 <% if properties.postgres %>
 PG_PACKAGE_DIR=/var/vcap/package/postgres
+function prepare_database() {
+  echo prepare database for Postgres
+
+  mkdir -p /var/vcap/store/postgres
+  chmod g+w -R /var/vcap/store/postgres
+  chgrp vcap /var/vcap/store/postgres
+}
+
 function database_ready() {
   DB_HOST='<%= properties.postgres.host %>'
   DB_PORT='<%= properties.postgres.port || 5432 %>'
@@ -10,9 +21,17 @@ function database_ready() {
   LD_LIBRARY_PATH=$PG_PACKAGE_DIR/lib $PG_PACKAGE_DIR/bin/psql -d $DB_NAME -p $DB_PORT -U $DB_USER -c "select 1;"
 }
 <% else %>
-# No database or SQLite database
+# assume SQLite3
+
+function prepare_database() {
+  echo prepare database for SQLite3
+  mkdir -p /var/vcap/store/sqlite3
+  chmod g+w -R /var/vcap/store/sqlite3
+  chgrp vcap /var/vcap/store/sqlite3
+}
+
 function database_ready() {
-  true
+  test -d /var/vcap/store/sqlite3
 }
 <% end %>
 

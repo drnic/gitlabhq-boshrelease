@@ -22,16 +22,17 @@ then
 fi
 
 function run_migrations() {
+  user=${1:-vcap}
   if [[ "${migrate}" = "true" || "${migrate}" = "1" || "${migrate}" = "yes" ]]
   then
-    cd $WEBAPP_DIR
-    
     wait_for_database
 
+    cd $WEBAPP_DIR
+
     echo "Running migrations"
-    bundle exec ${migration_command} \
-      >>$LOG_DIR/db_migrate.stdout.log \
-      2>>$LOG_DIR/db_migrate.stderr.log
+    chpst -u ${user}:vcap bundle exec ${migration_command} \
+                                >>$LOG_DIR/db_migrate.stdout.log \
+                                2>>$LOG_DIR/db_migrate.stderr.log
     if [ $? != 0 ]; then
       echo "Migrations failed"
       exit 1

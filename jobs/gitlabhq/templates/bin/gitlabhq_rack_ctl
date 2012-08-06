@@ -75,9 +75,6 @@ case $1 in
     ctl_start "$RUNAS"
 
     echo "Running $JOB_NAME on $PORT"
-
-    # world-readable logs
-    chmod 666 log/*.log
     ;;
 
   stop)

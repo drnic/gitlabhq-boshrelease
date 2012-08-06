@@ -19,15 +19,6 @@ packages=/var/vcap/packages
 
 if [[ ! -d ${GIT_HOME} ]]
 then
-  echo /usr/sbin/adduser \
-      --system \
-      --shell /bin/bash \
-      --gecos 'git version control' \
-      --uid 112 \
-      --group \
-      --disabled-password \
-      --home ${GIT_HOME} ${GIT_USER}
-  # different UID value from gitlab user
   /usr/sbin/adduser \
       --system \
       --shell /bin/bash \

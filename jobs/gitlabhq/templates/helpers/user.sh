@@ -12,14 +12,6 @@ function create_user() {
   login_home="/home/${login}"
   if [[ ! -d ${login_home} ]]
   then
-    echo /usr/sbin/adduser \
-        --system \
-        --shell /bin/bash \
-        --gecos "${general_info}" \
-        --uid 111 \
-        --group \
-        --disabled-password \
-        --home ${login_home} ${login}
     # different UID value from git user
     /usr/sbin/adduser \
         --system \

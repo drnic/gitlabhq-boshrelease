@@ -38,7 +38,7 @@ before_all() {
   rm -rf /home/gitlab/
 
   # update deployment with example properties
-  example=${release_path}/examples/one_user.yml
+  example=${release_path}/examples/postgres.yml
   sm bosh-solo update ${example}
 
   # wait for everything to boot up, migrate, create users, etc
@@ -98,3 +98,11 @@ it_runs_resque_workers() {
   test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 1
 }
 
+it_runs_postgres() {
+  expected='postgres -D /var/vcap/store/postgres -h 127.0.0.1 -p 5432'
+  test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 1
+}
+
+it_has_no_sqlite_db() {
+  test ! -d /var/vcap/store/sqlite3
+}

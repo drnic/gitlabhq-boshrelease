@@ -3,6 +3,12 @@ name: resque
 packages:
 - gitlabhq
 - ruby
+- icu4c
+- sqlite
+- libpq
+- mysqlclient
+- git
+- python27
 templates:
   bin/resque_ctl: bin/resque_ctl
   bin/ctl_setup.sh: bin/ctl_setup.sh

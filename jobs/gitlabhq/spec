@@ -1,6 +1,15 @@
 ---
 name: gitlabhq
-packages: []
+packages:
+- gitlabhq
+- ruby
+- icu4c
+- sqlite
+- libpq
+- mysqlclient
+- git
+- python27
+- nginx_next
 templates:
   bin/gitlabhq_rack_ctl: bin/gitlabhq_rack_ctl
   bin/ctl_setup.sh: bin/ctl_setup.sh

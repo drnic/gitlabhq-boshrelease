@@ -95,3 +95,19 @@ postgres/postgres-9.0.3-1.amd64.tar.gz:
   object_id: 488627a8-c056-4e62-b0d7-5337844fd4d6
   sha: e47ee9c841ecde4df121f44df282aeb3c50a48d2
   size: 16203511
+python/distribute-0.6.28.tar.gz:
+  object_id: daef45ff-8208-4d7a-866e-b547d78a5706
+  sha: 709bd97d46050d69865d4b588c7707768dfe6711
+  size: 627530
+python/pip-1.0.tar.gz:
+  object_id: 211c69cb-b5d8-4d6f-a473-e0364963c82b
+  sha: 822009671932f0dbfc39e325ea529e7feea60bd3
+  size: 100102
+python/pysqlite-2.6.3.tar.gz:
+  object_id: c8c27f9c-f9db-4e99-94fb-2f20ef6faae9
+  sha: d74d7649c5a1e9fb19dfa78c28b163007468a8cf
+  size: 74846
+python27/Python-2.7.3.tgz:
+  object_id: f57159ed-ab72-4257-a444-8b67508b0ec8
+  sha: dbe486dd15022ed32ebbac4e67225e280ba93c3b
+  size: 14135620

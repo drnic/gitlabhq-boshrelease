@@ -111,3 +111,7 @@ python27/Python-2.7.3.tgz:
   object_id: f57159ed-ab72-4257-a444-8b67508b0ec8
   sha: dbe486dd15022ed32ebbac4e67225e280ba93c3b
   size: 14135620
+python-pip-gitlabhq/Pygments-1.5.tar.gz:
+  object_id: 53334d38-82c6-4519-a75f-75d2effb63ce
+  sha: 4fbd937fd5cebc79fa4b26d4cce0868c4eec5ec5
+  size: 3712566

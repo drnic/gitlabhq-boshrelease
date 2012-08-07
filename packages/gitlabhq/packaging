@@ -31,3 +31,19 @@ cp -a gitlabhq/* ${BOSH_INSTALL_TARGET}
     --with-icu-include=${icu4c_dir}/include
   bundle install --local --deployment --binstubs --without development test
 )
+
+# install pygments pip package
+PATH=/var/vcap/packages/python27/bin:$PATH
+
+cd ${BOSH_COMPILE_TARGET}
+packages=$(ls -t python-pip-gitlabhq/*)
+# e.g.
+# - python-pip-gitlabhq/Pygments-1.5.tar.gz
+
+# Vendoring pips in project
+# http://carljm.github.com/tamingdeps/#30
+mkdir -p vendor
+
+echo "Installing pip packages: ${packages}"
+pip install --install-option="--home=${BOSH_INSTALL_TARGET}/vendor/" \
+  ${packages}

@@ -10,3 +10,4 @@ dependencies:
 - python27
 files:
 - gitlabhq/**/*
+- python-pip-gitlabhq/Pygments-1.5.tar.gz

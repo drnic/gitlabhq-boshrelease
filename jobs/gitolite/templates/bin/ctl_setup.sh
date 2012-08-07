@@ -36,6 +36,12 @@ do
   export PATH=${package_bin_dir}:$PATH
 done
 
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-''} # default to empty
+for package_bin_dir in $(ls -d /var/vcap/packages/*/lib)
+do
+  export LD_LIBRARY_PATH=${package_bin_dir}:$LD_LIBRARY_PATH
+done
+
 # Setup log, run and tmp folders
 
 RUN_DIR=/var/vcap/sys/run/$JOB_NAME
@@ -50,6 +56,9 @@ done
 
 export C_INCLUDE_PATH=/var/vcap/packages/mysqlclient/include/mysql:/var/vcap/packages/sqlite/include:/var/vcap/packages/libpq/include
 export LIBRARY_PATH=/var/vcap/packages/mysqlclient/lib/mysql:/var/vcap/packages/sqlite/lib:/var/vcap/packages/libpq/lib
+
+# consistent place for vendoring python libraries within package
+export PYTHONPATH=$WEBAPP_DIR/vendor/lib/python
 
 PIDFILE=$RUN_DIR/$JOB_NAME.pid
 

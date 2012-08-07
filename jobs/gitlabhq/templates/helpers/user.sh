@@ -9,37 +9,22 @@ set -u # report the usage of uninitialized variables
 function create_user() {
   login=$1
   general_info=${2:-'stranger in the night'}
-  login_home="/home/${login}"
-  echo attempting to create user ${login} for job $JOB_NAME
-  if [[ "$(ls /home/creating_${login} 2>/dev/null || echo 'not-locked')" != 'not-locked' ]]
+  if [ "$(cat /etc/passwd | grep ^${login}:)" = '' ]
   then
-    echo another process is simulatenously creating user ${login}
-    echo waiting 3 seconds and ignoring...
-    sleep 3
-  else
-    if [ "$(cat /etc/passwd | grep ^${login}:)" = '' ]
-    then
-      # create lock/marker on non-atomic user creation process
-      # to prevent simultaneous creation attempt
-      touch /home/creating_${login}
-      
-      echo creating user "${login}"
-      # different UID value from git user
-      /usr/sbin/adduser \
-          --system \
-          --shell /bin/bash \
-          --gecos "${general_info}" \
-          --uid 111 \
-          --group \
-          --disabled-password \
-          --home ${login_home} ${login}
+    echo creating user "${login}"
+    login_home="/home/${login}"
+    # different UID value from git user
+    /usr/sbin/adduser \
+        --system \
+        --shell /bin/bash \
+        --gecos "${general_info}" \
+        --uid 111 \
+        --group \
+        --disabled-password \
+        --home ${login_home} ${login}
 
-      touch ${login_home}/.bashrc
-      chown ${login}:${login} ${login_home}/.bashrc
-
-      # clean up lock/marker
-      rm /home/creating_${login}
-    fi
+    touch ${login_home}/.bashrc
+    chown ${login}:${login} ${login_home}/.bashrc
   fi
 }
 

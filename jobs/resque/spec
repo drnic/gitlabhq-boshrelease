@@ -15,4 +15,5 @@ templates:
   config/gitlab.yml.erb: config/gitlab.yml
   config/database.yml.erb: config/database.yml
   config/redis.yml.erb: config/redis.yml
+  helpers/user.sh: helpers/user.sh
   data/properties.sh.erb: data/properties.sh

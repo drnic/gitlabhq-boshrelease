@@ -42,7 +42,7 @@ before_all() {
   sm bosh-solo update ${example}
 
   # wait for everything to boot up, migrate, create users, etc
-  sleep 30
+  sleep 40
 
   # show last 20 processes (for debugging if test fails)
   ps ax | tail -n 20
@@ -94,7 +94,7 @@ it_runs_gitlabhq_nginx() {
 }
 
 it_runs_resque_workers() {
-  expected='bundle exec rake environment resque:work'
+  expected='resque-1.20.0: Waiting for post_receive,mailer,system_hook'
   test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 1
 }
 

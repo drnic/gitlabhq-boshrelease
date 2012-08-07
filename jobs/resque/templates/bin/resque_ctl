@@ -3,11 +3,12 @@
 set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 
-# Setup env vars and folders for the webapp_ctl script
+# Setup env vars and folders for the monit script
 source /var/vcap/jobs/resque/bin/ctl_setup.sh 'resque'
 
 # Load start helper
 source $JOB_DIR/bin/ctl_start.sh
+
 
 export LANG=en_US.UTF-8
 
@@ -23,6 +24,9 @@ source $JOB_DIR/bin/ctl_db_utils.sh
 # Helpers for Redis
 source $JOB_DIR/bin/ctl_redis_utils.sh
 
+# Helper for setting up users
+source $JOB_DIR/helpers/user.sh
+
 case $1 in
 
   start)
@@ -31,17 +35,22 @@ case $1 in
     # Following gitlab-specific instructions for installing gitolite/gitlabhq
     # https://github.com/gitlabhq/gitlabhq/blob/stable/doc/installation.md#3-install-gitolite
 
-    create_user "$RUNAS" "gitlab system"
-    # add user to git & vcap groups
-    if [ "$(cat /etc/group | grep '^git:')" = '' ]
+    if [[ -d /var/vcap/jobs/gitlabhq ]]
     then
-      groupadd git
-    fi
-    usermod -a -G git $RUNAS
-    usermod -a -G vcap $RUNAS
+      echo running resque on same machine as gitlabhq
+      echo waiting for it to create users etc
+      # TODO 'wait', rather than sleep
+      sleep 10
+    else
+      # create gitlabhq user, with keys that work with gitolite job
+      create_user $RUNAS "gitlab system"
+      # add user to git & vcap groups
+      add_user_to_group $RUNAS git
+      add_user_to_group $RUNAS vcap
 
-    # install pre-generated keys
-    install_keypair "$ADMIN_USER_PUB_KEY" "$ADMIN_USER_PRIV_KEY" "$RUNAS" "id_rsa"
+      # install pre-generated keys
+      install_keypair "$ADMIN_USER_PUB_KEY" "$ADMIN_USER_PRIV_KEY" "$RUNAS" "id_rsa"
+    fi
 
     cd $WEBAPP_DIR
 

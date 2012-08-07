@@ -7,6 +7,9 @@ source /var/vcap/jobs/gitolite/bin/ctl_setup.sh 'gitolite' 'nginx'
 redirect_output 'gitolite-nginx'
 PIDFILE=$RUN_DIR/nginx.pid
 
+# $USER required by Gitolite setup/installation
+export USER=git
+
 case $1 in
 
   start)

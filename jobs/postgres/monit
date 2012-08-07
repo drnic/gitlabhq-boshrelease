@@ -1,0 +1,7 @@
+<% if properties.postgres %>
+check process postgres
+  with pidfile /var/vcap/sys/run/postgres/postgres.pid
+  start program "/var/vcap/packages/common/bin/monit_debugger postgres_ctl '/var/vcap/jobs/postgres/bin/postgres_ctl start'" with timeout 300 seconds
+  stop program "/var/vcap/packages/common/bin/monit_debugger postgres_ctl '/var/vcap/jobs/postgres/bin/postgres_ctl stop'"
+  group vcap
+<% end %>

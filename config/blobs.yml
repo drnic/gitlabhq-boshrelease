@@ -91,3 +91,7 @@ ruby/bundler-1.2.0.rc.gem:
   object_id: 8e11103f-f114-4b8e-b92b-f7aff54d3dbb
   sha: 6c99959aebae912561ead06e67900580168cc853
   size: 222720
+postgres/postgres-9.0.3-1.amd64.tar.gz:
+  object_id: 488627a8-c056-4e62-b0d7-5337844fd4d6
+  sha: e47ee9c841ecde4df121f44df282aeb3c50a48d2
+  size: 16203511

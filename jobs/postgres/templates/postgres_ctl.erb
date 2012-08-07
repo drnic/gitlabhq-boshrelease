@@ -1,0 +1,103 @@
+#!/bin/bash -e
+<% if properties.postgres %> # do nothing if postgres not configured
+set -e # exit immediately if a simple command exits with a non-zero status
+
+PACKAGE_DIR=/var/vcap/packages/postgres
+JOB_DIR=/var/vcap/jobs/postgres
+DATA_DIR=/var/vcap/store/postgres
+RUN_DIR=/var/vcap/sys/run/postgres
+PIDFILE=$RUN_DIR/postgres.pid
+
+NAME_VERSION=$($PACKAGE_DIR/bin/pg_ctl -V | head -n 1)
+
+HOST='<%= properties.postgres.host %>'
+PORT='<%= properties.postgres.port || 5432 %>'
+USER='<%= properties.postgres.user %>'
+PASSWORD='<%= properties.postgres.password %>'
+DBNAME='<%= properties.postgres.database %>'
+
+source /var/vcap/packages/common/utils.sh
+redirect_output 'postgres'
+
+case "$1" in
+  start)
+    mkdir -p $RUN_DIR
+
+    if [ ! -d $DATA_DIR -o ! -f $DATA_DIR/postgresql.conf ]; then
+      mkdir -p $DATA_DIR
+      chown vcap:vcap $DATA_DIR
+
+      su - vcap -c "LD_LIBRARY_PATH=$PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PACKAGE_DIR/bin/initdb -E utf8 --locale=en_CA.utf-8 -D $DATA_DIR"
+
+      if [ $? != 0 ]; then
+        echo "ERROR: Unable to Initialize Postgres DB"
+        exit 1
+      fi
+
+      echo "host all $USER 0.0.0.0/0 md5" >> $DATA_DIR/pg_hba.conf
+
+      mkdir -p $DATA_DIR/pg_log
+      chown vcap:vcap $DATA_DIR/pg_log
+    fi
+
+    echo "Starting $NAME_VERSION: "
+    su - vcap -c "LD_LIBRARY_PATH=$PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PACKAGE_DIR/bin/pg_ctl -o \"-h $HOST -p $PORT\" -w start -D $DATA_DIR -l \"$DATA_DIR/pg_log/startup.log\""
+
+    if [ $? == 0 ]; then
+      echo "$NAME_VERSION started successfully"
+      head -n 1 $DATA_DIR/postmaster.pid > $PIDFILE
+
+      # These can fail when data already exists
+      set +e
+
+      echo "Trying to create database..."
+      su - vcap -c "LD_LIBRARY_PATH=$PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PACKAGE_DIR/bin/createdb $DBNAME -p $PORT"
+
+      echo "Trying to create user..."
+      LD_LIBRARY_PATH=$PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PACKAGE_DIR/bin/psql -d $DBNAME -p $PORT -U vcap -c "create role \"$USER\" NOSUPERUSER LOGIN INHERIT CREATEDB"
+
+      echo "Trying to alter user (to change password)..."
+      LD_LIBRARY_PATH=$PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PACKAGE_DIR/bin/psql -d $DBNAME -p $PORT -U vcap -c "alter role \"$USER\" with password '$PASSWORD'"
+
+      # Restore 'set -e' for completeness
+      set -e
+
+      exit 0
+    else
+      echo "The PostgreSQL server start seems to have some problems, please see logs for details."
+      exit 1
+    fi
+    ;;
+
+  stop)
+    if [[ -f $PIDFILE ]]
+    then
+      echo "Stopping $NAME_VERSION: "
+      PID=$(head -1 $PIDFILE)
+      su - vcap -c "LD_LIBRARY_PATH=$PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PACKAGE_DIR/bin/pg_ctl stop -m fast -w -D $DATA_DIR"
+      while [ -e /proc/$PID ]; do sleep 0.1; done
+      rm -f $PIDFILE
+    else
+      echo "Skipping stop, no PID file for $NAME_VERSION"
+      echo "May require manual shutdown of $NAME_VERSION process"
+    fi
+    ;;
+
+  status)
+    su - vcap -c "LD_LIBRARY_PATH=$PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PACKAGE_DIR/bin/pg_ctl status -D $DATA_DIR"
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop|status}"
+    exit 1
+    ;;
+esac
+<% else %>
+echo properties.postgres not configured
+echo required properties:
+echo * properties.postgres.host
+echo * properties.postgres.port (default: 5432)
+echo * properties.postgres.user
+echo * properties.postgres.password
+echo * properties.postgres.database
+<% end %>

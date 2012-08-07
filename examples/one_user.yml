@@ -4,6 +4,7 @@ jobs:
 - gitolite
 - gitlabhq
 - resque
+- postgres
 properties:
   admin:
     email: drnicwilliams+gitlabhqdemo@gmail.com

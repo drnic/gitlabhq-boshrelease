@@ -63,6 +63,6 @@ properties:
     port: 6379 
   postgres:
     host: 127.0.0.1
-    user: todo
+    user: gitlab
     password: p03tgR3s
     database: gitlabhq

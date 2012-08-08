@@ -4,11 +4,7 @@ set -u # report the usage of uninitialized variables
 <% if properties.postgres %>
 PG_PACKAGE_DIR=/var/vcap/package/postgres
 function prepare_database() {
-  echo prepare database for Postgres
-
-  mkdir -p /var/vcap/store/postgres
-  chmod g+w -R /var/vcap/store/postgres
-  chgrp vcap /var/vcap/store/postgres
+  echo prepare database for postgres: do nothing
 }
 
 function database_ready() {

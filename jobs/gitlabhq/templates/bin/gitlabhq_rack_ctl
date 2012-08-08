@@ -62,7 +62,7 @@ case $1 in
     # if redis enabled, link it to application
     link_redis_config yaml config/redis.yml
     
-    # Create database persistent storage, etc
+    # Create SQLite3 database persistent storage if required
     prepare_database
 
     # Migrations, if requested

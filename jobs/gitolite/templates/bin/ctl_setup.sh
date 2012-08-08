@@ -59,7 +59,7 @@ export C_INCLUDE_PATH=/var/vcap/packages/mysqlclient/include/mysql:/var/vcap/pac
 export LIBRARY_PATH=/var/vcap/packages/mysqlclient/lib/mysql:/var/vcap/packages/sqlite/lib:/var/vcap/packages/libpq/lib
 
 # consistent place for vendoring python libraries within package
-if [[ -d $WEBAPP_DIR ]]
+if [[ -d ${WEBAPP_DIR:-/xxxx} ]]
 then
   export PYTHONPATH=$WEBAPP_DIR/vendor/lib/python
 fi

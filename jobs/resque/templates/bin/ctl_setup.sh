@@ -20,6 +20,7 @@ export JOB_DIR=/var/vcap/jobs/$JOB_NAME
 chmod 755 $JOB_DIR # to access file via symlink
 
 # Load some bosh deployment properties into env vars
+# incl $WEBAPP_DIR
 if [[ -f $JOB_DIR/data/properties.sh ]]
 then
   source $JOB_DIR/data/properties.sh
@@ -58,7 +59,10 @@ export C_INCLUDE_PATH=/var/vcap/packages/mysqlclient/include/mysql:/var/vcap/pac
 export LIBRARY_PATH=/var/vcap/packages/mysqlclient/lib/mysql:/var/vcap/packages/sqlite/lib:/var/vcap/packages/libpq/lib
 
 # consistent place for vendoring python libraries within package
-export PYTHONPATH=$WEBAPP_DIR/vendor/lib/python
+if [[ -d $WEBAPP_DIR ]]
+then
+  export PYTHONPATH=$WEBAPP_DIR/vendor/lib/python
+fi
 
 PIDFILE=$RUN_DIR/$JOB_NAME.pid
 

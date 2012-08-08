@@ -16,3 +16,4 @@ templates:
   mime.types:         config/mime.types
   setup_gitolite.erb: bin/setup_gitolite
   dot.gitolite.rc:    config/dot.gitolite.rc
+  data/properties.sh.erb: data/properties.sh

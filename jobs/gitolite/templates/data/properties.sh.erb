@@ -9,12 +9,8 @@ export JOB_INDEX=<%= index %>
 # full job name, like redis/0 or webapp/3
 export JOB_FULL="$NAME/$JOB_INDEX"
 
-# name of job template within the release
-# that is, this file is at /var/vcap/jobs/JOB_NAME/data/properties.sh
-export JOB_NAME=$NAME
-
 # the package that contains the application code
-export WEBAPP_PACKAGE='<%= (properties.webapp && properties.webapp.package) || 'gitlabhq' %>' 
+export WEBAPP_PACKAGE='<%= (properties.webapp && properties.webapp.package) || 'gitolite' %>' 
 export WEBAPP_DIR=/var/vcap/packages/$WEBAPP_PACKAGE
 
 export WEBAPP_APPSTACK='<%= properties.webapp && properties.webapp.appstack %>'

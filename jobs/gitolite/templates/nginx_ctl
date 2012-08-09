@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Setup env vars and folders for the gitlabhq_rack_ctl script
-source /var/vcap/jobs/gitolite/bin/ctl_setup.sh 'gitolite' 'nginx'
+source /var/vcap/jobs/gitolite/bin/ctl_setup.sh 'nginx'
 
 # Override ctl_setup.sh defaults:
 redirect_output 'gitolite-nginx'

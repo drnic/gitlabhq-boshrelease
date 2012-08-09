@@ -1,5 +1,8 @@
 #!/usr/bin/env roundup
 
+# Run test:
+# roundup postgres-test.sh
+
 describe "git user"
 
 set -u # report the usage of uninitialized variables
@@ -13,6 +16,7 @@ release_path=$(pwd)
 rm -rf /tmp/before_all_run_already
 
 before_all() {
+
   sm bosh-solo stop
 
   rm -rf /var/vcap/store
@@ -42,7 +46,7 @@ before_all() {
   sm bosh-solo update ${example}
 
   # wait for everything to boot up, migrate, create users, etc
-  sleep 40
+  sleep 50
 
   # show last 20 processes (for debugging if test fails)
   ps ax | tail -n 20

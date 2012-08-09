@@ -1,7 +1,8 @@
 ---
 name: postgres
+packages:
+- postgres
 templates:
+  data/properties.sh.erb: data/properties.sh
   postgres_ctl.erb:  bin/postgres_ctl
   postgres.conf.erb: config/postgres.conf
-packages:
-  - postgres

@@ -4,5 +4,6 @@ packages:
 - redis
 - common
 templates:
+  data/properties.sh.erb: data/properties.sh
   redis_ctl: bin/redis_ctl
   redis.conf.erb: config/redis.conf

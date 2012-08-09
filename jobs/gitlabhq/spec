@@ -11,6 +11,7 @@ packages:
 - python27
 - nginx_next
 templates:
+  data/properties.sh.erb: data/properties.sh
   bin/gitlabhq_rack_ctl: bin/gitlabhq_rack_ctl
   bin/ctl_setup.sh: bin/ctl_setup.sh
   bin/ctl_utils.sh: bin/ctl_utils.sh
@@ -28,4 +29,3 @@ templates:
   config/nginx_proxy.conf: config/nginx_proxy.conf
   config/redis.yml.erb: config/redis.yml
   helpers/user.sh: helpers/user.sh
-  data/properties.sh.erb: data/properties.sh

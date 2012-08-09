@@ -10,6 +10,7 @@ packages:
 - git
 - python27
 templates:
+  data/properties.sh.erb: data/properties.sh
   bin/resque_ctl: bin/resque_ctl
   bin/ctl_setup.sh: bin/ctl_setup.sh
   bin/ctl_utils.sh: bin/ctl_utils.sh
@@ -22,4 +23,3 @@ templates:
   config/database.yml.erb: config/database.yml
   config/redis.yml.erb: config/redis.yml
   helpers/user.sh: helpers/user.sh
-  data/properties.sh.erb: data/properties.sh

@@ -1,1 +1,25 @@
 #!/usr/bin/env bash
+
+# job template binding variables
+
+# job name & index of this VM within cluster
+# e.g. JOB_NAME=redis, JOB_INDEX=0
+export NAME='<%= name %>'
+export JOB_INDEX=<%= index %>
+# full job name, like redis/0 or webapp/3
+export JOB_FULL="$NAME/$JOB_INDEX"
+
+# name of job template within the release
+# that is, this file is at /var/vcap/jobs/JOB_NAME/data/properties.sh
+export JOB_NAME=$NAME
+
+# the package that contains the application code
+export WEBAPP_PACKAGE='<%= (properties.webapp && properties.webapp.package) || 'gitlabhq' %>' 
+export WEBAPP_DIR=/var/vcap/packages/$WEBAPP_PACKAGE
+
+export WEBAPP_APPSTACK='<%= properties.webapp && properties.webapp.appstack %>'
+
+export ADMIN_USER_PUB_KEY='<%= properties.admin.admin_pub_key %>'
+export ADMIN_USER_PRIV_KEY='<%= properties.admin.admin_priv_key %>'
+
+export GIT_LOGIN='<%= (properties.git && properties.git.login) || 'git' %>'

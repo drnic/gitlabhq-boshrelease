@@ -10,6 +10,7 @@ packages:
 templates:
   data/properties.sh.erb: data/properties.sh
   nginx_ctl:          bin/nginx_ctl
+  bin/monit_debugger: bin/monit_debugger
   helpers/ctl_setup.sh:   helpers/ctl_setup.sh
   helpers/ctl_utils.sh:   helpers/ctl_utils.sh
   nginx.conf.erb:     config/nginx.conf

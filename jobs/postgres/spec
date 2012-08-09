@@ -4,5 +4,6 @@ packages:
 - postgres
 templates:
   data/properties.sh.erb: data/properties.sh
+  bin/monit_debugger: bin/monit_debugger
   postgres_ctl.erb:  bin/postgres_ctl
   postgres.conf.erb: config/postgres.conf

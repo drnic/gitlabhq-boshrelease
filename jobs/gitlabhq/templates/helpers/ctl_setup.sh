@@ -5,10 +5,10 @@
 # as possible
 
 # Usage options:
-# source /var/vcap/jobs/foobar/bin/ctl_setup.sh JOB_NAME OUTPUT_LABEL
-# source /var/vcap/jobs/foobar/bin/ctl_setup.sh foobar
-# source /var/vcap/jobs/foobar/bin/ctl_setup.sh foobar foobar
-# source /var/vcap/jobs/foobar/bin/ctl_setup.sh foobar nginx
+# source /var/vcap/jobs/foobar/helpers/ctl_setup.sh JOB_NAME OUTPUT_LABEL
+# source /var/vcap/jobs/foobar/helpers/ctl_setup.sh foobar
+# source /var/vcap/jobs/foobar/helpers/ctl_setup.sh foobar foobar
+# source /var/vcap/jobs/foobar/helpers/ctl_setup.sh foobar nginx
 
 set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
@@ -24,7 +24,7 @@ chmod 755 $JOB_DIR # to access file via symlink
 # incl $NAME, $JOB_INDEX, $WEBAPP_DIR
 source $JOB_DIR/data/properties.sh
 
-source $JOB_DIR/bin/ctl_utils.sh
+source $JOB_DIR/helpers/ctl_utils.sh
 redirect_output ${output_label}
 
 export HOME=${HOME:-/home/vcap}

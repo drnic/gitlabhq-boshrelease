@@ -4,10 +4,10 @@ set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 
 # Setup env vars and folders for the monit script
-source /var/vcap/jobs/gitlabhq/bin/ctl_setup.sh 'gitlabhq'
+source /var/vcap/jobs/gitlabhq/helpers/ctl_setup.sh 'gitlabhq'
 
 # Load start helper
-source $JOB_DIR/bin/ctl_start.sh
+source $JOB_DIR/helpers/ctl_start.sh
 
 export PORT=${PORT:-5000}
 export LANG=en_US.UTF-8
@@ -19,16 +19,16 @@ export RUNAS=gitlab
 source $JOB_DIR/bin/rails_ctl_setup.sh
 
 # Helpers for PostgresDB
-source $JOB_DIR/bin/ctl_db_utils.sh
+source $JOB_DIR/helpers/ctl_db_utils.sh
 
 # Helpers for Redis
-source $JOB_DIR/bin/ctl_redis_utils.sh
+source $JOB_DIR/helpers/ctl_redis_utils.sh
 
 # Helper for setting up users
 source $JOB_DIR/helpers/user.sh
 
 # Setup HTTP_PROXY, HTTPS_PROXY, NO_PROXY as necessary
-source $JOB_DIR/bin/ctl_nginx.sh
+source $JOB_DIR/helpers/ctl_nginx.sh
 
 case $1 in
 

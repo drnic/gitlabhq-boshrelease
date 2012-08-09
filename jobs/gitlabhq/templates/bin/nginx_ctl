@@ -4,7 +4,7 @@ set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 
 # Setup env vars and folders for the nginx_ctl script
-source /var/vcap/jobs/gitlabhq/bin/ctl_setup.sh 'gitlabhq' 'nginx'
+source /var/vcap/jobs/gitlabhq/helpers/ctl_setup.sh 'gitlabhq' 'nginx'
 
 # Override ctl_setup.sh defaults:
 PIDFILE=$RUN_DIR/nginx.pid

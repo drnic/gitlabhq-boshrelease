@@ -3,10 +3,10 @@ blobstore:
   provider: s3
   options: 
     bucket_name: boshreleases
-    iam_name: boshblobs
+    iam_name: boshblobs-download
     s3_owner: drnicwilliams@gmail.com
-    access_key_id: AKIAJ57X7JZGTCFGWY7A
-    secret_access_key: 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
+    access_key_id: AKIAIDC76IQWCWDL3QKQ
+    secret_access_key: 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
     encryption_key: asdfasfdasdfasdf
 min_cli_version: 0.19.5
 final_name: gitlabhq

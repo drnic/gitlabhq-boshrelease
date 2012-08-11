@@ -1,0 +1,86 @@
+#!/bin/bash -e
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+set +x
+
+# Setup env vars and folders for the monit script
+source /var/vcap/jobs/gitlabhq/helpers/ctl_setup.sh 'gitlabhq'
+
+STORE_DIR=/var/vcap/store/postgres
+
+NAME_VERSION=$($PG_PACKAGE_DIR/bin/pg_ctl -V | head -n 1)
+
+case "$1" in
+  start)
+    pid_guard $PIDFILE $JOB_NAME
+
+    if [ ! -d $STORE_DIR -o ! -f $STORE_DIR/postgresql.conf ]; then
+      mkdir -p $STORE_DIR
+      chown vcap:vcap $STORE_DIR
+
+      su - vcap -c "LD_LIBRARY_PATH=$PG_PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PG_PACKAGE_DIR/bin/initdb -E utf8 --locale=en_CA.utf-8 -D $STORE_DIR"
+
+      if [ $? != 0 ]; then
+        echo "ERROR: Unable to Initialize Postgres DB"
+        exit 1
+      fi
+
+      echo "host all $USER 0.0.0.0/0 md5" >> $STORE_DIR/pg_hba.conf
+
+      mkdir -p $STORE_DIR/pg_log
+      chown vcap:vcap $STORE_DIR/pg_log
+    fi
+
+    echo "Starting $NAME_VERSION: "
+    su - vcap -c "LD_LIBRARY_PATH=$PG_PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PG_PACKAGE_DIR/bin/pg_ctl -o \"-h $PG_HOST -p $PG_PORT\" -w start -D $STORE_DIR -l \"$STORE_DIR/pg_log/startup.log\""
+
+    if [ $? == 0 ]; then
+      echo "$NAME_VERSION started successfully"
+      head -n 1 $STORE_DIR/postmaster.pid > $PIDFILE
+
+      # These can fail when data already exists
+      set +e
+
+      echo "Trying to create database..."
+      su - vcap -c "LD_LIBRARY_PATH=$PG_PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PG_PACKAGE_DIR/bin/createdb $PG_DBNAME -p $PG_PORT"
+
+      echo "Trying to create user..."
+      LD_LIBRARY_PATH=$PG_PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PG_PACKAGE_DIR/bin/psql -d $PG_DBNAME -p $PG_PORT -U vcap -c "create role \"$PG_USER\" NOSUPERUSER LOGIN INHERIT CREATEDB"
+
+      echo "Trying to alter user (to change password)..."
+      LD_LIBRARY_PATH=$PG_PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PG_PACKAGE_DIR/bin/psql -d $PG_DBNAME -p $PG_PORT -U vcap -c "alter role \"$PG_USER\" with password '$PG_PASSWORD'"
+
+      # Restore 'set -e' for completeness
+      set -e
+
+      exit 0
+    else
+      echo "The PostgreSQL server start seems to have some problems, please see logs for details."
+      exit 1
+    fi
+    ;;
+
+  stop)
+    if [[ -f $PIDFILE ]]
+    then
+      echo "Stopping $NAME_VERSION: "
+      PID=$(head -1 $PIDFILE)
+      su - vcap -c "LD_LIBRARY_PATH=$PG_PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PG_PACKAGE_DIR/bin/pg_ctl stop -m fast -w -D $STORE_DIR"
+      while [ -e /proc/$PID ]; do sleep 0.1; done
+      rm -f $PIDFILE
+    else
+      echo "Skipping stop, no PID file for $NAME_VERSION"
+      echo "May require manual shutdown of $NAME_VERSION process"
+    fi
+    ;;
+
+  status)
+    su - vcap -c "LD_LIBRARY_PATH=$PG_PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PG_PACKAGE_DIR/bin/pg_ctl status -D $STORE_DIR"
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop|status}"
+    exit 1
+    ;;
+esac

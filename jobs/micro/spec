@@ -1,0 +1,24 @@
+---
+name: micro
+packages:
+- common
+- gettext
+- git
+- gitlabhq
+- gitolite
+- icu4c
+- libpq
+- mysqlclient
+- nginx_next
+- perl
+- postgres
+- python27
+- redis
+- ruby
+- sqlite
+templates:
+  bin/micro_ctl: bin/micro_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh

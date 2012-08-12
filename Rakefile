@@ -1,3 +1,5 @@
+root = File.expand_path('..', __FILE__)
+
 desc "Generates a properties file for each job based on properties.X.Y used in templates"
 task :job_properties do
   require "fileutils"
@@ -13,3 +15,17 @@ task :job_properties do
     end
   end
 end
+
+namespace :micro do
+  desc "Update micro spec to include all packages"
+  task :update_packages do
+    require "yaml"
+    
+    spec_path = root + "/jobs/micro/spec"
+    packages = Dir[root + "/packages/*"].map {|p| File.basename(p)}
+    spec = YAML.load_file(spec_path)
+    spec["packages"] = packages
+    File.open(spec_path, "w") { |file| file << YAML.dump(spec) }
+  end
+end
+    

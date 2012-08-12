@@ -95,6 +95,8 @@ File.open("spec", "w") do |file|
   file.puts spec.to_yaml
 end
 
+
+
 # generate post_install file with all jobs
 # it creates links from
 # jobs/micro/<job>/bin/foo to jobs/<job>/bin/foo
@@ -105,12 +107,18 @@ post_install = <<POST_INSTALL
 for DIR in /var/vcap/jobs /var/vcap/data/jobs; do
   cd $DIR
   for JOB in <%= jobs.join(" ") %>; do
-    mkdir -p ${JOB}/bin ${JOB}/config
+    mkdir -p ${JOB}/bin ${JOB}/config ${JOB}/data ${JOB}/helpers
     for FILE in <%= MICRO_JOB_NAME %>/$JOB/bin/*; do
       ln -nsf ../../$FILE $JOB/bin
     done
     for FILE in <%= MICRO_JOB_NAME %>/$JOB/config/*; do
       ln -nsf ../../$FILE $JOB/config
+    done
+    for FILE in <%= MICRO_JOB_NAME %>/$JOB/data/*; do
+      ln -nsf ../../$FILE $JOB/data
+    done
+    for FILE in <%= MICRO_JOB_NAME %>/$JOB/helpers/*; do
+      ln -nsf ../../$FILE $JOB/helpers
     done
   done
 done

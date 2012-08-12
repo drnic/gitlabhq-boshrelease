@@ -2,6 +2,7 @@
 jobs:
 - micro
 properties:
+  micro: true
   admin:
     email: drnicwilliams+gitlabhqdemo@gmail.com
     admin_priv_key: |

@@ -8,11 +8,6 @@ function prepare_database() {
 }
 
 function database_ready() {
-  DB_HOST='<%= properties.postgres.host %>'
-  DB_PORT='<%= properties.postgres.port || 5432 %>'
-  DB_USER='<%= properties.postgres.user %>'
-  DB_PASSWORD='<%= properties.postgres.password %>'
-  DB_NAME='<%= properties.postgres.database %>'
   echo Testing postgresl: psql -d $DB_NAME -p $DB_PORT -U vcap -c "select 1;"
   LD_LIBRARY_PATH=$PG_PACKAGE_DIR/lib $PG_PACKAGE_DIR/bin/psql -d $DB_NAME -p $DB_PORT -U $DB_USER -c "select 1;"
 }

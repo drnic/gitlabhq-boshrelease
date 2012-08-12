@@ -5,7 +5,7 @@ set -u # report the usage of uninitialized variables
 set +x
 
 # Setup env vars and folders for the monit script
-source /var/vcap/jobs/gitlabhq/helpers/ctl_setup.sh 'postgres'
+source /var/vcap/jobs/postgres/helpers/ctl_setup.sh 'postgres'
 
 # Helpers for PostgresDB
 source $JOB_DIR/helpers/ctl_db_utils.sh

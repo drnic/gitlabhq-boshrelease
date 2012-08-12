@@ -19,7 +19,7 @@ case "$1" in
   start)
     pid_guard $PIDFILE $JOB_NAME
 
-    if [ -f $STORE_DIR/postgresql.conf ]; then
+    if [ ! -f $STORE_DIR/postgresql.conf ]; then
       su - vcap -c "LD_LIBRARY_PATH=$PG_PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PG_PACKAGE_DIR/bin/initdb -E UTF8 --locale=en_CA.utf-8 -D $STORE_DIR"
 
       if [ $? != 0 ]; then

@@ -17,7 +17,6 @@ PREPARE_SPEC = YAML.load_file(File.expand_path("../prepare_spec", __FILE__))
 
 # Order of jobs, implicitly specifies the order in which they are started
 jobs = PREPARE_SPEC["jobs"]
-p jobs
 
 spec = {
   "name" => MICRO_JOB_NAME,
@@ -47,23 +46,34 @@ jobs.each do |job|
     monit << "\n"
   end
 
-  # copy templates
-  # FIXME nested templates/*/*
-  # Dir.glob("#{job_dir(job)}/templates/**").each do |file|
-  #   name = File.basename(file)
-  #   override = File.join(OVERRIDE, job, name)
-  #   dest = File.join(TEMPLATES, job)
-  #   FileUtils.mkdir_p(dest) unless File.directory?(dest)
-  # 
-  #   if File.exist?(File.join(dest, name))
-  #     puts "File conflict for job #{job}: #{name}"
-  #     exit 1
-  #   elsif File.exist?(override)
-  #     FileUtils.cp(override, dest)
-  #   else
-  #     FileUtils.cp(file, dest)
-  #   end
-  # end
+  # copy templates from:
+  # * templates/<template_name>
+  # * templates/<template_dir>/<template_name>
+  Dir.glob("#{job_dir(job)}/templates/**/*").each do |file|
+    next if File.directory?(file)
+    
+    template_name = File.basename(file)
+    template_dir = File.basename(File.dirname(file))
+    # check if template file is in a nested dir
+    # if 'templates' then its not
+    if template_dir == "templates"
+      override = File.join(OVERRIDE, job, template_name)
+      dest = File.join(TEMPLATES, job)
+    else
+      override = File.join(OVERRIDE, job, template_dir, template_name)
+      dest = File.join(TEMPLATES, job, template_dir)
+    end
+    FileUtils.mkdir_p(dest) unless File.directory?(dest)
+  
+    if File.exist?(File.join(dest, template_name))
+      puts "File conflict for job #{job}: #{template_name}"
+      exit 1
+    elsif File.exist?(override)
+      FileUtils.cp(override, dest)
+    else
+      FileUtils.cp(file, dest)
+    end
+  end
 
   # build spec
   s = YAML.load_file("#{job_dir(job)}/spec")

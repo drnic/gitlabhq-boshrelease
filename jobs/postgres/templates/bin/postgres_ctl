@@ -10,17 +10,17 @@ source /var/vcap/jobs/postgres/helpers/ctl_setup.sh 'postgres'
 # Helpers for PostgresDB
 source $JOB_DIR/helpers/ctl_db_utils.sh
 
+# postgres requires only user-level access to data directory
+chmod 700 $STORE_DIR
+
 NAME_VERSION=$($PG_PACKAGE_DIR/bin/pg_ctl -V | head -n 1)
 
 case "$1" in
   start)
     pid_guard $PIDFILE $JOB_NAME
 
-    if [ ! -d $STORE_DIR -o ! -f $STORE_DIR/postgresql.conf ]; then
-      mkdir -p $STORE_DIR
-      chown vcap:vcap $STORE_DIR
-
-      su - vcap -c "LD_LIBRARY_PATH=$PG_PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PG_PACKAGE_DIR/bin/initdb -E utf8 --locale=en_CA.utf-8 -D $STORE_DIR"
+    if [ -f $STORE_DIR/postgresql.conf ]; then
+      su - vcap -c "LD_LIBRARY_PATH=$PG_PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PG_PACKAGE_DIR/bin/initdb -E UTF8 --locale=en_CA.utf-8 -D $STORE_DIR"
 
       if [ $? != 0 ]; then
         echo "ERROR: Unable to Initialize Postgres DB"
@@ -34,7 +34,7 @@ case "$1" in
     fi
 
     echo "Starting $NAME_VERSION: "
-    su - vcap -c "LD_LIBRARY_PATH=$PG_PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PG_PACKAGE_DIR/bin/pg_ctl -o \"-h $PG_HOST -p $PG_PORT\" -w start -D $STORE_DIR -l \"$STORE_DIR/pg_log/startup.log\""
+    su - vcap -c "LD_LIBRARY_PATH=$PG_PACKAGE_DIR/lib:$LD_LIBRARY_PATH $PG_PACKAGE_DIR/bin/pg_ctl -o \"-h 0.0.0.0 -p $PG_PORT\" -w start -D $STORE_DIR -l \"$STORE_DIR/pg_log/startup.log\""
 
     if [ $? == 0 ]; then
       echo "$NAME_VERSION started successfully"

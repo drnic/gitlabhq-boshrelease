@@ -18,14 +18,10 @@ end
 
 namespace :micro do
   desc "Update micro spec to include all packages"
-  task :update_packages do
-    require "yaml"
-    
-    spec_path = root + "/jobs/micro/spec"
-    packages = Dir[root + "/packages/*"].map {|p| File.basename(p)}
-    spec = YAML.load_file(spec_path)
-    spec["packages"] = packages
-    File.open(spec_path, "w") { |file| file << YAML.dump(spec) }
+  task :clean do
+    sh "rm jobs/micro*/monit"
+    sh "rm jobs/micro*/spec"
+    sh "rm -rf jobs/micro*/templates/"
   end
 end
     

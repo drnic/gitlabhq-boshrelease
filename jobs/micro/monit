@@ -1,5 +1,0 @@
-check process micro
-  with pidfile /var/vcap/sys/run/micro/micro.pid
-  start program "/var/vcap/jobs/micro/bin/monit_debugger micro_ctl '/var/vcap/jobs/micro/bin/micro_ctl start'"
-  stop program "/var/vcap/jobs/micro/bin/monit_debugger micro_ctl '/var/vcap/jobs/micro/bin/micro_ctl stop'"
-  group vcap

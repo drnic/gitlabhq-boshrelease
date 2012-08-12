@@ -8,4 +8,5 @@ templates:
   bin/monit_debugger: bin/monit_debugger
   helpers/ctl_setup.sh:   helpers/ctl_setup.sh
   helpers/ctl_utils.sh:   helpers/ctl_utils.sh
+  helpers/ctl_db_utils.sh.erb: helpers/ctl_db_utils.sh
   config/postgres.conf.erb: config/postgres.conf

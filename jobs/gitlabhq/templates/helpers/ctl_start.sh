@@ -40,13 +40,13 @@ function ctl_start() {
     MAX_THREADS=<%= (puma_threads && puma_threads.max) || 16 %>
     chpst -u ${runas}:vcap bundle exec puma --pidfile $PIDFILE -p $PORT -t $MIN_THREADS:$MAX_THREADS \
          >>$LOG_DIR/webapp.stdout.log \
-         2>>$LOG_DIR/webapp.stderr.log || exit 1
+         2>>$LOG_DIR/webapp.stderr.log
 
   elif [[ "${appstack}" = "rackup" ]]
   then
     chpst -u ${runas}:vcap bundle exec rackup -D -P $PIDFILE -p $PORT \
          >>$LOG_DIR/webapp.stdout.log \
-         2>>$LOG_DIR/webapp.stderr.log || exit 1
+         2>>$LOG_DIR/webapp.stderr.log
 
   elif [[ "${appstack}" = "phpfpm" || "${appstack}" = "php-fpm" ]]
   then

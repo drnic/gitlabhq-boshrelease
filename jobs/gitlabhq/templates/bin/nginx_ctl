@@ -7,14 +7,14 @@ set -u # report the usage of uninitialized variables
 source /var/vcap/jobs/gitlabhq/helpers/ctl_setup.sh 'gitlabhq' 'nginx'
 
 # Override ctl_setup.sh defaults:
-PIDFILE=$RUN_DIR/nginx.pid
+NGINX_PIDFILE=$RUN_DIR/nginx.pid
 
 case $1 in
 
   start)
-    pid_guard $PIDFILE "nginx for $JOB_NAME"
+    pid_guard $NGINX_PIDFILE "nginx for $JOB_NAME"
 
-    echo $$ > $PIDFILE
+    echo $$ > $NGINX_PIDFILE
 
     exec /var/vcap/packages/nginx_next/sbin/nginx \
          -c $JOB_DIR/config/nginx.conf \
@@ -24,7 +24,7 @@ case $1 in
 
   stop)
     echo "Stopping nginx"
-    kill_and_wait $PIDFILE
+    kill_and_wait $NGINX_PIDFILE
     ;;
 
   *)

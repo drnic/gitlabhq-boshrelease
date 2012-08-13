@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-REDIS='<%= properties.redis ? 1 : 0 %>'
-
 # Usage: link_redis_config yaml config/redis.yml
 function link_redis_config() {
   format=$1         # e.g. yaml
@@ -11,7 +9,7 @@ function link_redis_config() {
     echo "ERROR: 'link_redis_config ${format}' is not supported. Only supported format: yaml"
     exit 1
   fi
-  if [[ "$REDIS" = '1' ]]
+  if [[ "$REDIS_ENABLED" = '1' ]]
   then
     link_job_file_to_package ${app_config}
   fi

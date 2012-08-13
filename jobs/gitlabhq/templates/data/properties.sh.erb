@@ -19,3 +19,6 @@ export ADMIN_USER_PUB_KEY='<%= properties.admin.admin_pub_key %>'
 export ADMIN_USER_PRIV_KEY='<%= properties.admin.admin_priv_key %>'
 
 export GIT_LOGIN='<%= (properties.git && properties.git.login) || 'git' %>'
+
+export REDIS_ENABLED='<%= properties.redis ? 1 : 0 %>'
+

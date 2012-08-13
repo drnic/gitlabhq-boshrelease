@@ -20,7 +20,7 @@ templates:
   helpers/ctl_start.sh: helpers/ctl_start.sh
   helpers/ctl_db_utils.sh.erb: helpers/ctl_db_utils.sh
   helpers/ctl_nginx.sh.erb: helpers/ctl_nginx.sh
-  helpers/ctl_redis_utils.sh.erb: helpers/ctl_redis_utils.sh
+  helpers/ctl_redis_utils.sh: helpers/ctl_redis_utils.sh
   helpers/rails_ctl_setup.sh.erb: bin/rails_ctl_setup.sh
   helpers/user.sh: helpers/user.sh
   config/gitlab.yml.erb: config/gitlab.yml

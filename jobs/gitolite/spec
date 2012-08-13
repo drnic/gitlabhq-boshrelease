@@ -13,7 +13,7 @@ templates:
   bin/monit_debugger:     bin/monit_debugger
   helpers/ctl_setup.sh:   helpers/ctl_setup.sh
   helpers/ctl_utils.sh:   helpers/ctl_utils.sh
-  helpers/setup_gitolite.erb: helpers/setup_gitolite
+  helpers/setup_gitolite.sh: helpers/setup_gitolite.sh
   config/dot.gitolite.rc:    config/dot.gitolite.rc
   config/nginx.conf.erb:     config/nginx.conf
   config/nginx_proxy.conf:   config/nginx_proxy.conf

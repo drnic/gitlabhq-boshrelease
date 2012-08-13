@@ -64,7 +64,8 @@ case $1 in
     link_sql_db_config
     
     # if redis enabled, link it to application
-    link_redis_config yaml config/redis.yml
+    # link_redis_config yaml config/redis.yml
+    link_job_file_to_package config/redis.yml
 
     # FIXME - run more than 1 worker
     # FIXME - run as vcap

@@ -102,6 +102,11 @@ it_runs_resque_workers() {
   test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 1
 }
 
+it_runs_redis() {
+  expected='redis-server'
+  test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 1
+}
+
 it_runs_postgres() {
   expected='postgres -D /var/vcap/store/postgres -h 127.0.0.1 -p 5432'
   test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 1

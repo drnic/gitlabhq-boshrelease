@@ -14,6 +14,7 @@ export LANG=en_US.UTF-8
 
 # RUNAS user is a member of vcap group
 export RUNAS=gitlab
+export HOME=/home/$RUNAS
 
 # Setup for Rails application
 source $JOB_DIR/bin/rails_ctl_setup.sh

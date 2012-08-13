@@ -9,12 +9,12 @@ packages:
 - common
 templates:
   data/properties.sh.erb: data/properties.sh
-  nginx_ctl:          bin/nginx_ctl
-  bin/monit_debugger: bin/monit_debugger
+  bin/nginx_gitolite_ctl: bin/nginx_gitolite_ctl
+  bin/monit_debugger:     bin/monit_debugger
   helpers/ctl_setup.sh:   helpers/ctl_setup.sh
   helpers/ctl_utils.sh:   helpers/ctl_utils.sh
-  nginx.conf.erb:     config/nginx.conf
-  nginx_proxy.conf:   config/nginx_proxy.conf
-  mime.types:         config/mime.types
-  setup_gitolite.erb: bin/setup_gitolite
-  dot.gitolite.rc:    config/dot.gitolite.rc
+  helpers/setup_gitolite.erb: helpers/setup_gitolite
+  config/dot.gitolite.rc:    config/dot.gitolite.rc
+  config/nginx.conf.erb:     config/nginx.conf
+  config/nginx_proxy.conf:   config/nginx_proxy.conf
+  config/mime.types:         config/mime.types

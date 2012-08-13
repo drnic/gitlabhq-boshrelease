@@ -8,12 +8,6 @@
 set -u # report the usage of uninitialized variables
 set +x
 
-export GIT_USER='<%= (properties.git && properties.git.login) || 'git' %>'
-export GIT_USER_GRP=${GIT_USER}:vcap
-export GIT_PASSWORD="<%= (properties.git && properties.git.password) || '${GIT_USER}' %>"
-export GIT_HOME="/home/${GIT_USER}"
-export ADMIN_PUB_KEY='<%= properties.admin.admin_pub_key %>'
-
 export HOME=${GIT_HOME}
 packages=/var/vcap/packages
 
@@ -29,6 +23,7 @@ then
       --home ${GIT_HOME} ${GIT_USER}
 
   chpst -u ${GIT_USER_GRP} touch ${GIT_HOME}/.bashrc
+  
   echo 'export PATH=${packages}/perl/bin:$PATH' >> ${GIT_HOME}/.bashrc
   echo 'export PATH=${packages}/git/bin:$PATH' >> ${GIT_HOME}/.bashrc
   echo 'export PATH=${packages}/gitolite/src:$PATH' >> ${GIT_HOME}/.bashrc

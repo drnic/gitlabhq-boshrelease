@@ -16,7 +16,7 @@ case $1 in
     pid_guard $PIDFILE "gitolite-nginx"
 
     # Setup git user & env variables
-    source /var/vcap/jobs/gitolite/bin/setup_gitolite
+    source /var/vcap/jobs/gitolite/helpers/setup_gitolite.sh
     
     echo $$ > $PIDFILE
 

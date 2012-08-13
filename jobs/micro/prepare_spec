@@ -1,0 +1,7 @@
+---
+jobs:
+- postgres
+- redis
+- gitolite
+- gitlabhq
+- resque

@@ -1,3 +1,5 @@
+root = File.expand_path('..', __FILE__)
+
 desc "Generates a properties file for each job based on properties.X.Y used in templates"
 task :job_properties do
   require "fileutils"
@@ -13,3 +15,13 @@ task :job_properties do
     end
   end
 end
+
+namespace :micro do
+  desc "Update micro spec to include all packages"
+  task :clean do
+    sh "rm jobs/micro*/monit"
+    sh "rm jobs/micro*/spec"
+    sh "rm -rf jobs/micro*/templates/"
+  end
+end
+    

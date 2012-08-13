@@ -1,0 +1,65 @@
+---
+jobs:
+- micro
+properties:
+  micro: true
+  admin:
+    email: drnicwilliams+gitlabhqdemo@gmail.com
+    admin_priv_key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEogIBAAKCAQEA4RszvmPUm025SgVt2L0vQnVX9J8a4pMnSPZUalyJFOy+1I08
+      wKf+VGTHqjZ5gpLiloyzdKQkCaKRZoDHEwb8qRZZwBvPxY23oHxIMF3GDLfEU0yg
+      lBsWCvioaYpVR9oXEPTfBqra5BxXSKI0FOVyX4B9jknZaFHh6l/4yeqnAc4LRT+2
+      h4BTUUtj7Ao5PvKpVw4acWFBEuSDz7/Luv6a2fTgLUqi1NfKhdONBb5fFyCbn7ay
+      1AdIYgSIUxw6UM9ZrSYixr2HV+zgzKAugFNeblH3JVNZiTEVFhd3yYr3AlV6QFur
+      dOznb4MbIBuQinWodlYNvMjRxiGHZNsZGmg5MQIBIwKCAQATS3l2uBmJp5OKAHch
+      NMmJWoPhxH6ltNd7SFBg41w0/ll/7tlSV4rUCKNmXHDQrYEi2NwukbnyMoF90IYX
+      kuJ05KibcBkfj83pLzljOzzchMevXlboH5Qs03wmTa+J0N1n2nmEOofKaNRIDec0
+      /blYpJ0MMjc009GJHitEgdPM9D4z+zUypwbL0BPW1UEFvvnx907rzrCR2kXdsyLK
+      JNDXA5ppvY0R3+FhlQnl8NPzfYQxix/jGNaluOB/A5SBzlTiJ+pejeZ+OsYpWuv1
+      K268q27ffiIXnGNNFHfswZDjLoBlFsaHD+ey5nn7NrAz8tgy709dBq2gKRQXvvj9
+      lFl7AoGBAPWFHMvznNPO0xTiezTW+CR8FXbuEWeLCkP/XJJwJn4e2pclggZiKhcl
+      oZ8I3CZgrqzc7zrBfMi6MHQsfHREMkmA/1L7smdQ2xBhwAUwRWZy5scwP2qzyscW
+      C++xdYhvswj5Xe7W6NEGU5y1IfsSXOjy6eu2z69Ol1plX5UsFDidAoGBAOq3BX3v
+      nDA4p2eUgbh6RnYpXgrEOc2M57tgjqNp1ULumuo2JS6iJG3tvHqCPeVIZD3WGwQO
+      aLdvvIOyIKwiNdyIVSF76PRGZB3du2h5E0FiRc0a/wvB8HInchD4mH7i2UIA9AXL
+      n9yXWUSi0OMaB4/b2YQeAI4rAEKVHNW1O+ylAoGBAIVIQtUd2MrAu7rhWNOKo/aM
+      gK5GuP2x4QBXbMSGBkR3JjTLN/TWNBsxr4I4Ans7zIm5w7IuhZGJpUZhSuAHw4b8
+      4mA/fhrUHyYmb43Jv0Y+YAW7GxyqvolVHGwtIovk3YiHXuC9ztfe3O6reNjA01ni
+      9AOdwTNH68NbmkmqNtznAoGBAN1NejTpO33sRhE0P8sxdaKcCDYJeFQXI6IKlR27
+      jo+Qg28dG75BGwiPsbVWOlvWimYwRVuYjp5TaJltb0M2MsidzJvp26R84g2H6zae
+      Ctc/ZmJMp1Q6g57UvAFfazXOklQsyNJDpVr1GacdK1nIFcInDupILGjJdUYXkDc1
+      2WoXAoGAPRAmJvktGlMdpD/jVHZGRB54z8MGd70bEaSYPfA6DkD5vd0TIRjTbQgq
+      6qz0ZsJb0ZZFsprZx+Qt9o9qkTUHIy9rq98+ZxWTvC9doFm4eGGBlboO9NZ20L7z
+      DFtSjMFxx8yyokMYHPYjCAu0s9xbVYGa+j9AP0ZlzXj3xrFX5r0=
+      -----END RSA PRIVATE KEY-----
+    admin_pub_key: "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA4RszvmPUm025SgVt2L0vQnVX9J8a4pMnSPZUalyJFOy+1I08wKf+VGTHqjZ5gpLiloyzdKQkCaKRZoDHEwb8qRZZwBvPxY23oHxIMF3GDLfEU0yglBsWCvioaYpVR9oXEPTfBqra5BxXSKI0FOVyX4B9jknZaFHh6l/4yeqnAc4LRT+2h4BTUUtj7Ao5PvKpVw4acWFBEuSDz7/Luv6a2fTgLUqi1NfKhdONBb5fFyCbn7ay1AdIYgSIUxw6UM9ZrSYixr2HV+zgzKAugFNeblH3JVNZiTEVFhd3yYr3AlV6QFurdOznb4MbIBuQinWodlYNvMjRxiGHZNsZGmg5MQ== gitlab@lucid64"
+  git:
+    login: git
+  users:
+  - username: drnic
+    public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTUdTt0T9j6UxN6izjITtYytbQNfmRrkD4xf4yEPyewFGXrSPkcgmTrJmQAEYSM6cqYwnNrTZHtILagi0Ww5wPDU06PaRvSOQmggUfHCU8az2yZ+ouDe25vuIfEe9z2x9tVwBQ/j4CI5lBLpANJl2HtEVghHU/x9vWcJXYgedezVFxIlZcXKl92T5VcOcuCRgjtcoDBW74nQ/JmalGH6ZDRd4yg2+aE8e08Q2ZO9pYCIsyCuAbokQgOv188OhgFuS3QypyuElU36s+q5toFQ/+8v5EiJGOxmFPAHjkDIh1hcZl6GwTFGgqlHG4w33E9ke3ZIYz6jhlqLWQyZTL5NrT drnic@drnic
+  webapp:
+    package: gitlabhq
+    use_nginx: 1
+    nginx:
+      port: 80
+    appstack: puma
+    puma:
+      threads:
+        min: 0
+        max: 20
+    migrate: 1
+    migration_command: rake db:migrate --trace
+  gitolite:
+    host: 127.0.0.1
+    nginx:
+      port: 81 # to not conflict with gitlabhq as primary :80
+  redis:
+    host: 127.0.0.1
+    port: 6379 
+  postgres:
+    host: 127.0.0.1
+    user: gitlab
+    password: p03tgR3s
+    database: gitlabhq

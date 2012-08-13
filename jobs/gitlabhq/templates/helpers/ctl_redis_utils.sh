@@ -11,6 +11,6 @@ function link_redis_config() {
   fi
   if [[ "$REDIS_ENABLED" = '1' ]]
   then
-    link_job_file_to_package ${app_config}
+    copy_job_file_to_package ${app_config}
   fi
 }

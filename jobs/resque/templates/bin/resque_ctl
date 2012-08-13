@@ -58,14 +58,14 @@ case $1 in
     ctl_start_prepare_webapp "$RUNAS" $WEBAPP_DIR
 
     # link gitlab configuration
-    link_job_file_to_package config/gitlab.yml
+    copy_job_file_to_package config/gitlab.yml
 
     # link database.yml config to application
     link_sql_db_config
     
     # if redis enabled, link it to application
     # link_redis_config yaml config/redis.yml
-    link_job_file_to_package config/redis.yml
+    copy_job_file_to_package config/redis.yml
 
     # FIXME - run more than 1 worker
     # FIXME - run as vcap

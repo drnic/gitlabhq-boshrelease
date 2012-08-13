@@ -2,8 +2,8 @@
 
 # links a job file (probably a config file) into a package
 # Example usage:
-# link_job_file_to_package config/redis.yml [config/redis.yml]
-# link_job_file_to_package config/wp-config.php wp-config.php
+# copy_job_file_to_package config/redis.yml [config/redis.yml]
+# copy_job_file_to_package config/wp-config.php wp-config.php
 link_job_file_to_package() {
   source_job_file=$1
   target_package_file=${2:-$source_job_file}
@@ -30,6 +30,43 @@ link_job_file() {
     # deleted, so don't attempt to create the symlink
     mkdir -p $(dirname ${target_file})
     ln -nfs ${full_job_file} ${target_file}
+  fi
+}
+
+# copies a job file (probably a config file) into a package
+# and ensures the file is readable by vcap group
+# Example usage:
+# copy_job_file_to_package config/redis.yml [config/redis.yml]
+# copy_job_file_to_package config/wp-config.php wp-config.php
+copy_job_file_to_package() {
+  source_job_file=$1
+  target_package_file=${2:-$source_job_file}
+  full_package_file=$WEBAPP_DIR/${target_package_file}
+  
+  copy_job_file ${source_job_file} ${full_package_file}
+  chmod g+r ${full_package_file}
+  chgrp vcap ${full_package_file}
+}
+
+# copies a job file (probably a config file) somewhere
+# Example usage:
+# link_job_file config/bashrc /home/vcap/.bashrc
+copy_job_file() {
+  source_job_file=$1
+  target_file=$2
+  full_job_file=$JOB_DIR/${source_job_file}
+  
+  echo copy_job_file ${full_job_file} ${target_file}
+  if [[ ! -f ${full_job_file} ]]
+  then
+    echo "file to copy ${full_job_file} does not exist"
+  else
+    # Create/recreate the symlink to current job file
+    # If another process is using the file, it won't be
+    # deleted, so don't attempt to create the symlink
+    mkdir -p $(dirname ${target_file})
+    rm -rf ${target_file}
+    cp ${full_job_file} ${target_file}
   fi
 }
 

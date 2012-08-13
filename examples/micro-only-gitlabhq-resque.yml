@@ -1,8 +1,15 @@
+# Entire micro job installed, monit only starts
+# specified properties.micro sub-jobs
+#
+# This allows some jobs to be provisioned in dedicated
+# job VMs, whilst others staying on the micro job VM
 ---
 jobs:
 - micro
 properties:
-  micro: all
+  micro:
+    - gitlabhq
+    - resque
   admin:
     email: drnicwilliams+gitlabhqdemo@gmail.com
     admin_priv_key: |

@@ -25,7 +25,7 @@ then
 
   chpst -u ${git_user_grp} touch ${GIT_HOME}/.bashrc
   chpst -u ${git_user_grp} git config --global \
-    init.templatedir /var/vcap/packages/git/share/git-core/templatesroot
+    init.templatedir /var/vcap/packages/git/share/git-core/templates
   
   echo 'export PATH=${packages}/perl/bin:$PATH' >> ${GIT_HOME}/.bashrc
   echo 'export PATH=${packages}/git/bin:$PATH' >> ${GIT_HOME}/.bashrc

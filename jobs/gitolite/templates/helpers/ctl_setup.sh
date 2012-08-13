@@ -67,8 +67,8 @@ fi
 if [[ -d /var/vcap/packages/git ]]
 then
   # templatedir set to explicit, possibly incorrect: 
-  # /var/vcap/data/packages/git/0.1-dev/share/git-core/templatesroot
-  git config --global init.templatedir /var/vcap/packages/git/share/git-core/templatesroot
+  # /var/vcap/data/packages/git/0.1-dev/share/git-core/templates
+  git config --global init.templatedir /var/vcap/packages/git/share/git-core/templates
 fi  
 
 if [[ -d /var/vcap/packages/java7 ]]

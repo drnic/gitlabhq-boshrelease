@@ -40,13 +40,13 @@ function ctl_start() {
     MAX_THREADS=<%= (puma_threads && puma_threads.max) || 16 %>
     chpst -u ${runas}:vcap bundle exec puma --pidfile $PIDFILE -p $PORT -t $MIN_THREADS:$MAX_THREADS \
          >>$LOG_DIR/webapp.stdout.log \
-         2>>$LOG_DIR/webapp.stderr.log || exit 1
+         2>>$LOG_DIR/webapp.stderr.log
 
   elif [[ "${appstack}" = "rackup" ]]
   then
     chpst -u ${runas}:vcap bundle exec rackup -D -P $PIDFILE -p $PORT \
          >>$LOG_DIR/webapp.stdout.log \
-         2>>$LOG_DIR/webapp.stderr.log || exit 1
+         2>>$LOG_DIR/webapp.stderr.log
 
   elif [[ "${appstack}" = "phpfpm" || "${appstack}" = "php-fpm" ]]
   then
@@ -74,5 +74,17 @@ function ctl_start_prepare_webapp() {
   chown ${runas} -R ${webapp_dir}/*
   chgrp vcap -R ${webapp_dir}/*
   chmod g+w -R ${webapp_dir}/*
+  
+  # To avoid this warning/error, make it a git repo
+  #   fatal: Not a git repository (or any parent up to mount point /var/vcap/data)
+  #   Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+  if [[ ! -d ${webapp_dir}/.git ]]
+  then
+    cd ${webapp_dir}
+    git init
+    git add *
+    git commit -m "stub commit to convert package to git repo"
+    chgrp vcap .git
+  fi
 }
 

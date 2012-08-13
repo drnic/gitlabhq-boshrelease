@@ -74,5 +74,17 @@ function ctl_start_prepare_webapp() {
   chown ${runas} -R ${webapp_dir}/*
   chgrp vcap -R ${webapp_dir}/*
   chmod g+w -R ${webapp_dir}/*
+  
+  # To avoid this warning/error, make it a git repo
+  #   fatal: Not a git repository (or any parent up to mount point /var/vcap/data)
+  #   Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+  if [[ ! -d ${webapp_dir}/.git ]]
+  then
+    cd ${webapp_dir}
+    git init
+    git add *
+    git commit -m "stub commit to convert package to git repo"
+    chgrp vcap .git
+  fi
 }
 

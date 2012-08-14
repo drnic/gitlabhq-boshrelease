@@ -78,6 +78,7 @@ function ctl_start_prepare_webapp() {
   # To avoid this warning/error, make it a git repo
   #   fatal: Not a git repository (or any parent up to mount point /var/vcap/data)
   #   Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+  # TODO this is really for packages using bundler that have :git gems
   if [[ ! -d ${webapp_dir}/.git ]]
   then
     cd ${webapp_dir}

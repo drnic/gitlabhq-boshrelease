@@ -1,6 +1,6 @@
 check process gitlabhq
   with pidfile /var/vcap/sys/run/gitlabhq/gitlabhq.pid
-  start program "/var/vcap/jobs/gitlabhq/bin/monit_debugger gitlabhq_ctl '/var/vcap/jobs/gitlabhq/bin/gitlabhq_rack_ctl start'"
+  start program "/var/vcap/jobs/gitlabhq/bin/monit_debugger gitlabhq_ctl '/var/vcap/jobs/gitlabhq/bin/gitlabhq_rack_ctl start'" with timeout 180 seconds
   stop program "/var/vcap/jobs/gitlabhq/bin/monit_debugger gitlabhq_ctl '/var/vcap/jobs/gitlabhq/bin/gitlabhq_rack_ctl stop'"
   group vcap
 

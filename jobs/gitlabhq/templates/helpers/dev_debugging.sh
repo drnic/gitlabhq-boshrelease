@@ -21,6 +21,21 @@ function tailjob() {
   tail -f -n 50 /var/vcap/sys/log/monit/${jobname}.* /var/vcap/sys/log/${jobname}/*
 }
 
+function tailmonit() {
+  tail -f /var/vcap/monit/monit.log
+}
+
+function tailpkg() {
+  pkgname=${1:-xxx}
+  if [[ "$pkgname" = "xxx" ]]
+  then
+    echo "USAGE: cd_pkg mypkg"
+    exit 1
+  fi
+  tail -f -n 50 /var/vcap/packages/${pkgname}/**/*.log
+}
+
+
 function cd_job() {
   jobname=${1:-xxx}
   if [[ "$jobname" = "xxx" ]]

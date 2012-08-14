@@ -81,10 +81,14 @@ function ctl_start_prepare_webapp() {
   if [[ ! -d ${webapp_dir}/.git ]]
   then
     cd ${webapp_dir}
-    git init
-    git add *
-    git commit -m "stub commit to convert package to git repo"
-    chgrp vcap .git
+    chpst -u ${runas} git config --global \
+      init.templatedir /var/vcap/packages/git/share/git-core/templates
+
+    chpst -u ${runas} git config user.email "you@example.com"
+    chpst -u ${runas} git config user.name "bosh"
+    chpst -u ${runas} git init
+    chpst -u ${runas} git add *
+    chpst -u ${runas} git commit -m "stub commit to convert package to git repo"
   fi
 }
 

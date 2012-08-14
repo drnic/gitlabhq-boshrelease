@@ -69,11 +69,11 @@ function ctl_start() {
 # * $WEBAPP_DIR
 function ctl_start_prepare_webapp() {
   runas=${1:-vcap}
-  webapp_dir=${2:-$WEBAPP_DIR}
+  webapp_dir=$(readlink ${2:-$WEBAPP_DIR})
 
-  chown ${runas} -R ${webapp_dir}/*
-  chgrp vcap -R ${webapp_dir}/*
-  chmod g+w -R ${webapp_dir}/*
+  chown ${runas} -R ${webapp_dir}
+  chgrp vcap -R ${webapp_dir}
+  chmod g+w -R ${webapp_dir}
   
   # To avoid this warning/error, make it a git repo
   #   fatal: Not a git repository (or any parent up to mount point /var/vcap/data)
@@ -84,8 +84,8 @@ function ctl_start_prepare_webapp() {
     chpst -u ${runas} git config --global \
       init.templatedir /var/vcap/packages/git/share/git-core/templates
 
-    chpst -u ${runas} git config user.email "you@example.com"
-    chpst -u ${runas} git config user.name "bosh"
+    chpst -u ${runas} git config --global user.email "you@example.com"
+    chpst -u ${runas} git config --global user.name "bosh"
     chpst -u ${runas} git init
     chpst -u ${runas} git add *
     chpst -u ${runas} git commit -m "stub commit to convert package to git repo"

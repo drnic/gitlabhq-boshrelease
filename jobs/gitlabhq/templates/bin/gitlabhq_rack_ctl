@@ -51,7 +51,6 @@ case $1 in
 
     cd $WEBAPP_DIR
     
-    # TODO what user/group to change code base into?
     ctl_start_prepare_webapp "$RUNAS" $WEBAPP_DIR
     
     # link gitlab configuration

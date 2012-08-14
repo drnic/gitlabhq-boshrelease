@@ -42,7 +42,9 @@ jobs.each do |job|
     monit_file = "#{job_dir(job)}/monit"
   end
   File.open(monit_file) do |file|
+    monit << "<% if enable_#{job} %>\n"
     monit += file.readlines
+    monit << "<% end %>\n"
     monit << "\n"
   end
 
@@ -85,6 +87,18 @@ end
 
 # write out the concatenated monit file
 File.open("monit", "w") do |file|
+  file << <<-ERB.gsub(/^\s{2}/, '')
+  <%
+  micro = properties.micro
+  enable_all = micro.nil? || micro == 'all'
+  unless enable_all || micro.is_a?(Array)
+    throw "properties.micro must be 'all' or an Array of job names; was: \#{micro.inspect}"
+  end
+  ERB
+  jobs.each do |job|
+    file << "enable_#{job} = enable_all || micro.include?('#{job}')\n"
+  end
+  file << "%>\n\n"
   file.puts monit.join
 end
 

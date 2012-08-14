@@ -8,8 +8,8 @@ jobs:
 - micro
 properties:
   micro:
-    - gitlabhq
-    - resque
+    - postgres
+    - redis
   admin:
     email: drnicwilliams+gitlabhqdemo@gmail.com
     admin_priv_key: |

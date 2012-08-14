@@ -42,7 +42,7 @@ before_all() {
   rm -rf /home/gitlab/
 
   # update deployment with example properties
-  example=${release_path}/examples/micro-only-gitlabhq-resque.yml
+  example=${release_path}/examples/micro-only-postgres-redis.yml
   sm bosh-solo update ${example}
 
   # wait for everything to boot up, migrate, create users, etc
@@ -62,56 +62,32 @@ before() {
   fi
 }
 
-it_creates_git_home() {
-  test -d /home/git
-}
-
-it_creates_gitolite_admin() {
-  test -d /home/git/repositories/gitolite-admin.git/
-}
-
-it_creates_authorized_keys() {
-  test -f /home/git/.ssh/authorized_keys
-}
-
-it_has_chunkin_module_in_nginx() {
-  test $(/var/vcap/packages/nginx_next/sbin/nginx -V 2>&1 | grep 'chunkin' | wc -l) = 1
-}
-
-it_runs_gitolite_nginx() {
+it_runs_no_gitolite_nginx() {
   expected='sbin/nginx -c /var/vcap/jobs/gitolite/config/nginx.conf'
-  test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 1
+  test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 0
 }
 
-it_restarted_nginx() {
-  test $(cat /var/vcap/sys/log/gitolite/nginx.stderr.log | wc -l) = 0
-}
-
-it_runs_gitlabhq_using_puma() {
+it_runs_no_gitlabhq_using_puma() {
   expected='puma --pidfile /var/vcap/sys/run/gitlabhq/gitlabhq.pid -p 5000 -t 0:20'
-  test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 1
+  test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 0
 }
 
-it_runs_gitlabhq_nginx() {
+it_runs_no_gitlabhq_nginx() {
   expected='sbin/nginx -c /var/vcap/jobs/gitlabhq/config/nginx.conf'
-  test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 1
+  test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 0
 }
 
-it_runs_resque_workers() {
+it_runs_no_resque_workers() {
   expected='resque-1.20.0: Waiting for post_receive,mailer,system_hook'
+  test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 0
+}
+
+it_runs_redis() {
+  expected='redis-server'
   test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 1
 }
 
-it_does_not_run_redis() {
-  expected='redis-server'
-  test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 0
-}
-
-it_does_not_run_postgres() {
-  expected='postgres'
-  test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 0
-}
-
-it_has_no_sqlite_db() {
-  test ! -d /var/vcap/store/sqlite3
+it_runs_postgres() {
+  expected='bin/postgres -D /var/vcap/store/postgres -h 0.0.0.0 -p 5432'
+  test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 1
 }

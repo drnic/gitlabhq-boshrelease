@@ -103,7 +103,7 @@ it_runs_resque_workers() {
 }
 
 it_runs_postgres() {
-  expected='postgres -D /var/vcap/store/postgres -h 127.0.0.1 -p 5432'
+  expected='postgres -D /var/vcap/store/postgres -h 0.0.0.0 -p 5432'
   test $(ps ax | grep "${expected}" | grep -v 'grep' | wc -l) = 1
 }
 

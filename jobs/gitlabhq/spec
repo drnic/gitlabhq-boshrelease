@@ -23,6 +23,7 @@ templates:
   helpers/ctl_redis_utils.sh: helpers/ctl_redis_utils.sh
   helpers/rails_ctl_setup.sh.erb: bin/rails_ctl_setup.sh
   helpers/user.sh: helpers/user.sh
+  helpers/dev_debugging.sh: helpers/dev_debugging.sh
   config/gitlab.yml.erb: config/gitlab.yml
   config/database.yml.erb: config/database.yml
   config/mime.types: config/mime.types

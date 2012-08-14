@@ -69,6 +69,9 @@ case $1 in
     # Migrations, if requested
     run_migrations "$RUNAS"
     
+    # gitlab_seed
+    # bundle exec rake gitlab:app:setup
+
     # TODO what is 'ulimit -c unlimited' for; when not to use it?
     ulimit -c unlimited
     

@@ -11,42 +11,29 @@
 # # tailjob myjob
 # 
 
-function taillogs() {
-  load_job_properties 'taillogs' ${1:-xxx}
-  tail -f ${JOB_LOGS[@]}
-}
+export JOB_NAME=${1:-$JOB_NAME}
 
-function tailmonit() {
-  tail -f /var/vcap/monit/monit.log
-}
+if [[ ! -f /var/vcap/jobs/${JOB_NAME}/helpers/ctl_setup.sh ]]
+then
+  echo "USAGE: dev_debugging.sh JOB_NAME"
+else
+  source /var/vcap/jobs/${JOB_NAME}/helpers/ctl_setup.sh $JOB_NAME
 
-function cd_job() {
-  jobname=${1:-xxx}
-  if [[ "$jobname" = "xxx" ]]
-  then
-    echo "USAGE: cd_job myjob"
-    exit 1
-  fi
-  cd /var/vcap/jobs/${jobname}
-}
+  function taillogs() {
+    tail -f ${JOB_LOGS[@]}
+  }
 
-function cd_pkg() {
-  pkgname=${1:-xxx}
-  if [[ "$pkgname" = "xxx" ]]
-  then
-    echo "USAGE: cd_pkg mypkg"
-    exit 1
-  fi
-  cd /var/vcap/jobs/${jobname}
-}
+  function tailmonit() {
+    tail -f /var/vcap/monit/monit.log
+  }
 
-function load_job_properties() {
-  script=$1
-  jobname=${2:-xxx}
-  if [[ "${jobname}" = "xxx" ]]
-  then
-    echo "USAGE: ${script} myjob"
-    exit 1
-  fi
-  source /var/vcap/jobs/${jobname}/data/properties.sh
-}
+  function cd_job() {
+    target_jobname=${1:-$JOB_NAME}
+    cd /var/vcap/jobs/${target_jobname}
+  }
+
+  function cd_pkg() {
+    pkgname=${1:-$JOB_NAME}
+    cd /var/vcap/packages/${pkgname}
+  }
+fi

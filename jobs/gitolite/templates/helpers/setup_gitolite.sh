@@ -46,10 +46,10 @@ chown git -R $(readlink ${packages}/gitolite)
 echo chpst -u ${git_user_grp} $(readlink ${packages}/gitolite)/install
 chpst -u ${git_user_grp} $(readlink ${packages}/gitolite)/install
 
-echo "${ADMIN_PUB_KEY}" > ${GIT_HOME}/${GIT_USER}.pub
-chown ${git_user_grp} ${GIT_HOME}/${GIT_USER}.pub
+echo "${ADMIN_PUB_KEY}" > ${GIT_HOME}/gitlab.pub
+chmod 0444 ${GIT_HOME}/gitlab.pub
 
 # TODO how to make idempotent? what is it doing?
 echo "gitolite at" $(which gitolite)
-echo chpst -u ${git_user_grp} gitolite setup -pk ${GIT_HOME}/${GIT_USER}.pub
-chpst -u ${git_user_grp} gitolite setup -pk ${GIT_HOME}/${GIT_USER}.pub
+echo chpst -u ${git_user_grp} gitolite setup -pk ${GIT_HOME}/gitlab.pub
+chpst -u ${git_user_grp} gitolite setup -pk ${GIT_HOME}/gitlab.pub

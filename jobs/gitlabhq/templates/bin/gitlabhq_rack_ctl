@@ -70,7 +70,10 @@ case $1 in
     run_migrations "$RUNAS"
     
     # gitlab_seed
-    # bundle exec rake gitlab:app:setup
+    cd $WEBAPP_DIR
+    chpst -u "$RUNAS:vcap" mkdir -p tmp
+    chpst -u $RUNAS bundle exec rake gitlab:app:setup --trace
+    chpst -u $RUNAS bundle exec rake gitlab:app:status
 
     # TODO what is 'ulimit -c unlimited' for; when not to use it?
     ulimit -c unlimited

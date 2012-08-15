@@ -1,0 +1,5 @@
+/var/vcap/sys/log/monit/monit_debugger.gitlabhq_ctl.log
+/var/vcap/sys/log/monit/monit_debugger.nginx_ctl.log
+/var/vcap/sys/log/gitlabhq/*.log
+/var/vcap/sys/log/monit/gitlabhq*.log
+/var/vcap/packages/gitlabhq/log/*.log

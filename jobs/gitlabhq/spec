@@ -12,6 +12,7 @@ packages:
 - nginx_next
 templates:
   data/properties.sh.erb: data/properties.sh
+  data/logs: data/logs
   bin/gitlabhq_rack_ctl: bin/gitlabhq_rack_ctl
   bin/nginx_ctl: bin/nginx_ctl
   bin/monit_debugger: bin/monit_debugger
@@ -30,9 +31,3 @@ templates:
   config/nginx.conf.erb: config/nginx.conf
   config/nginx_proxy.conf: config/nginx_proxy.conf
   config/redis.yml.erb: config/redis.yml
-logs:
-  - /var/vcap/sys/log/monit/monit_debugger.gitlabhq_ctl.log
-  - /var/vcap/sys/log/monit/monit_debugger.nginx_ctl.log
-  - /var/vcap/sys/log/gitlabhq/*.log
-  - /var/vcap/sys/log/monit/gitlabhq*.log
-  - /var/vcap/packages/gitlabhq/log/*.log

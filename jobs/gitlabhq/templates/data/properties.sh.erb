@@ -8,6 +8,8 @@ export NAME='<%= name %>'
 export JOB_INDEX=<%= index %>
 # full job name, like redis/0 or webapp/3
 export JOB_FULL="$NAME/$JOB_INDEX"
+<% job_spec = YAML.load_file("/var/vcap/jobs/#{name}/job.MF")%>
+export JOB_LOGS=(<%= (job_spec["logs"] || []).join(' ') %>)
 
 # the package that contains the application code
 export WEBAPP_PACKAGE='<%= (properties.webapp && properties.webapp.package) || 'gitlabhq' %>' 

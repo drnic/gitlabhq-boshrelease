@@ -11,30 +11,14 @@
 # # tailjob myjob
 # 
 
-function tailjob() {
-  jobname=${1:-xxx}
-  if [[ "$jobname" = "xxx" ]]
-  then
-    echo "USAGE: tailjob myjob"
-    exit 1
-  fi
-  tail -f -n 50 /var/vcap/sys/log/monit/${jobname}.* /var/vcap/sys/log/${jobname}/*
+function taillogs() {
+  load_job_properties 'taillogs' ${1:-xxx}
+  tail -f ${JOB_LOGS[@]}
 }
 
 function tailmonit() {
   tail -f /var/vcap/monit/monit.log
 }
-
-function tailpkg() {
-  pkgname=${1:-xxx}
-  if [[ "$pkgname" = "xxx" ]]
-  then
-    echo "USAGE: cd_pkg mypkg"
-    exit 1
-  fi
-  tail -f -n 50 /var/vcap/packages/${pkgname}/**/*.log
-}
-
 
 function cd_job() {
   jobname=${1:-xxx}
@@ -54,4 +38,15 @@ function cd_pkg() {
     exit 1
   fi
   cd /var/vcap/jobs/${jobname}
+}
+
+function load_job_properties() {
+  script=$1
+  jobname=${2:-xxx}
+  if [[ "${jobname}" = "xxx" ]]
+  then
+    echo "USAGE: ${script} myjob"
+    exit 1
+  fi
+  source /var/vcap/jobs/${jobname}/data/properties.sh
 }

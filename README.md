@@ -6,11 +6,11 @@ To create and upload this release to your BOSH:
 
 ```
 bosh target BOSH_URL
-git clone git@github.com:engineyard/cassandra-boshrelease.git
-cd cassandra-boshrelease
+git clone git@github.com:engineyard/gitlabhq-boshrelease.git
+cd gitlabhq-boshrelease
 bosh create release
 # blobs are automatically downloaded
-# name it 'cassandra-dev' or something unique to your bosh
+# name it 'gitlabhq-dev' or something unique to your bosh
 bosh upload release
 ```
 
